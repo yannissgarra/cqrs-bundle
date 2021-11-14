@@ -1,0 +1,44 @@
+{
+    "name": "webmunkeez/cqrs-bundle",
+    "type": "symfony-bundle",
+    "description": "Command-Query-Responsibility-Segregation pattern made for Symfony.",
+    "keywords": [
+        "Symfony",
+        "cqrs",
+        "command",
+        "query",
+        "event",
+        "messenger",
+        "autowiring"
+    ],
+    "homepage": "https://github.com/yannissgarra/cqrs-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yannis Sgarra",
+            "email": "hello@yannissgarra.com",
+            "homepage": "https://yannissgarra.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4.0",
+        "symfony/config": "^5.0",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/messenger": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webmunkeez\\CQRSBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webmunkeez\\CQRSBundle\\Test\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

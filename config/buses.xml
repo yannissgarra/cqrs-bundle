@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="Webmunkeez\CQRSBundle\Messenger\CommandBus">
+            <argument type="service" id="messenger.bus.command"/>
+        </service>
+
+        <service id="Webmunkeez\CQRSBundle\Command\CommandBusInterface" alias="Webmunkeez\CQRSBundle\Messenger\CommandBus" />
+
+        <service id="Webmunkeez\CQRSBundle\Messenger\QueryBus">
+            <argument type="service" id="messenger.bus.query"/>
+        </service>
+
+        <service id="Webmunkeez\CQRSBundle\Query\QueryBusInterface" alias="Webmunkeez\CQRSBundle\Messenger\QueryBus" />
+
+        <service id="Webmunkeez\CQRSBundle\Messenger\EventBus">
+            <argument type="service" id="messenger.bus.event"/>
+        </service>
+
+        <service id="Webmunkeez\CQRSBundle\Event\EventBusInterface" alias="Webmunkeez\CQRSBundle\Messenger\EventBus" />
+
+        <service id="Webmunkeez\CQRSBundle\Messenger\ExceptionMiddleware" />
+    </services>
+</container>
