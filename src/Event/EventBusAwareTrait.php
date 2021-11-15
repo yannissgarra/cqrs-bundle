@@ -18,7 +18,7 @@ trait EventBusAwareTrait
 {
     private EventBusInterface $eventBus;
 
-    public function setQueryBus(EventBusInterface $eventBus): void
+    public function setEventBus(EventBusInterface $eventBus): void
     {
         $this->eventBus = $eventBus;
     }
