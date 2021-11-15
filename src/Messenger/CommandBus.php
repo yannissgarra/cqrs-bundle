@@ -23,22 +23,18 @@ final class CommandBus implements CommandBusInterface
 {
     private MessageBusInterface $bus;
 
-    public function __construct(MessageBusInterface $commandBus)
+    public function __construct(MessageBusInterface $bus)
     {
-        $this->bus = $commandBus;
+        $this->bus = $bus;
     }
 
     public function dispatch(CommandInterface $command): mixed
     {
-        /** @var HandledStamp|null $stamp The value that was returned by the last message handler. */
-        $stamp = $this->bus
-            ->dispatch($command)
-            ->last(HandledStamp::class);
+        /** @var HandledStamp|null $stamp */
+        $stamp = $this->bus->dispatch($command)
+            ->last(HandledStamp::class)
+        ;
 
-        if (null === $stamp) {
-            return null;
-        }
-
-        return $stamp->getResult();
+        return null !== $stamp ? $stamp->getResult() : null;
     }
 }

@@ -22,9 +22,9 @@ final class EventBus implements EventBusInterface
 {
     private MessageBusInterface $bus;
 
-    public function __construct(MessageBusInterface $eventBus)
+    public function __construct(MessageBusInterface $bus)
     {
-        $this->bus = $eventBus;
+        $this->bus = $bus;
     }
 
     public function dispatch(EventInterface $event): void

@@ -23,22 +23,18 @@ final class QueryBus implements QueryBusInterface
 {
     private MessageBusInterface $bus;
 
-    public function __construct(MessageBusInterface $queryBus)
+    public function __construct(MessageBusInterface $bus)
     {
-        $this->bus = $queryBus;
+        $this->bus = $bus;
     }
 
     public function dispatch(QueryInterface $query): mixed
     {
-        /** @var HandledStamp|null $stamp The value that was returned by the last message handler. */
-        $stamp = $this->bus
-            ->dispatch($query)
-            ->last(HandledStamp::class);
+        /** @var HandledStamp|null $stamp */
+        $stamp = $this->bus->dispatch($query)
+            ->last(HandledStamp::class)
+        ;
 
-        if (null === $stamp) {
-            return null;
-        }
-
-        return $stamp->getResult();
+        return null !== $stamp ? $stamp->getResult() : null;
     }
 }
