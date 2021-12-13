@@ -67,6 +67,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
         // define default config for messenger
         $container->prependExtensionConfig('framework', [
             'messenger' => [
+                'reset_on_message' => true,
                 'default_bus' => 'messenger.bus.event',
                 'buses' => [
                     'messenger.bus.command' => [
