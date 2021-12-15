@@ -15,7 +15,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Webmunkeez\CQRSBundle\Command\CommandBusAwareInterface;
 use Webmunkeez\CQRSBundle\Command\CommandHandlerInterface;
 use Webmunkeez\CQRSBundle\Event\EventBusAwareInterface;
@@ -34,8 +34,8 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('buses.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader->load('buses.php');
 
         $container->registerForAutoconfiguration(CommandHandlerInterface::class)
             ->addTag('messenger.message_handler', ['bus' => 'messenger.bus.command'])
