@@ -19,7 +19,10 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestException;
  */
 final class TestCommandHandler implements CommandHandlerInterface
 {
-    public function __invoke(TestCommand $command): string
+    /**
+     * @throws TestException
+     */
+    public function handle(TestCommand $command): string
     {
         if (TestCommand::NAME_FAILED === $command->getName()) {
             throw new TestException();

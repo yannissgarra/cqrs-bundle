@@ -11,21 +11,25 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller;
 
-use Webmunkeez\CQRSBundle\Query\QueryBusAwareInterface;
-use Webmunkeez\CQRSBundle\Query\QueryBusAwareTrait;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Query\TestQuery;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Query\TestQueryHandler;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class QueryAction implements QueryBusAwareInterface
+final class QueryAction
 {
-    use QueryBusAwareTrait;
+    private TestQueryHandler $handler;
+
+    public function __construct(TestQueryHandler $handler)
+    {
+        $this->handler = $handler;
+    }
 
     public function __invoke(string $name): string
     {
         $query = (new TestQuery())->setName($name);
 
-        return $this->queryBus->dispatch($query);
+        return $this->handler->handle($query);
     }
 }

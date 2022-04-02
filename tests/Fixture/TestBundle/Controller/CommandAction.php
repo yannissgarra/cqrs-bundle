@@ -11,21 +11,25 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller;
 
-use Webmunkeez\CQRSBundle\Command\CommandBusAwareInterface;
-use Webmunkeez\CQRSBundle\Command\CommandBusAwareTrait;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Command\TestCommand;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Command\TestCommandHandler;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class CommandAction implements CommandBusAwareInterface
+final class CommandAction
 {
-    use CommandBusAwareTrait;
+    private TestCommandHandler $handler;
+
+    public function __construct(TestCommandHandler $handler)
+    {
+        $this->handler = $handler;
+    }
 
     public function __invoke(string $name): string
     {
         $command = (new TestCommand())->setName($name);
 
-        return $this->commandBus->dispatch($command);
+        return $this->handler->handle($command);
     }
 }

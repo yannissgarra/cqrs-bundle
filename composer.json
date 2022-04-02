@@ -7,8 +7,6 @@
         "cqrs",
         "command",
         "query",
-        "event",
-        "messenger",
         "autowiring"
     ],
     "homepage": "https://github.com/yannissgarra/cqrs-bundle",
@@ -23,8 +21,7 @@
     "require": {
         "php": ">=8.1.0",
         "symfony/config": "^6.0",
-        "symfony/dependency-injection": "^6.0",
-        "symfony/messenger": "^6.0"
+        "symfony/dependency-injection": "^6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",

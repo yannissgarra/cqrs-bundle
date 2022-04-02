@@ -19,7 +19,10 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestException;
  */
 final class TestQueryHandler implements QueryHandlerInterface
 {
-    public function __invoke(TestQuery $query): string
+    /**
+     * @throws TestException
+     */
+    public function handle(TestQuery $query): string
     {
         if (TestQuery::NAME_FAILED === $query->getName()) {
             throw new TestException();
