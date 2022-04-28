@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture;
 
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -25,6 +26,7 @@ final class TestKernel extends Kernel
     public function registerBundles(): iterable
     {
         return [
+            new DoctrineBundle(),
             new FrameworkBundle(),
             new WebmunkeezCQRSBundle(),
             new TestBundle(),
@@ -34,6 +36,7 @@ final class TestKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/config/config.yaml');
+        $loader->load(__DIR__.'/config/doctrine.yaml');
     }
 
     public function getProjectDir(): string

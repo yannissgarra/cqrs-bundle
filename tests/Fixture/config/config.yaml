@@ -5,7 +5,7 @@ framework:
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
+        autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in TestBundle/ available to be used as services
@@ -15,4 +15,8 @@ services:
 
     Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller\:
         resource: '../TestBundle/Controller/'
+        public: true
+
+    Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\:
+        resource: '../TestBundle/Repository/'
         public: true
