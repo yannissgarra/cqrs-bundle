@@ -8,6 +8,10 @@ services:
         autowire: true # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+    # makes this service public
+    Webmunkeez\CQRSBundle\Messenger\MessengerEventDispatcher:
+        public: true
+
     # makes classes in TestBundle/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\:
