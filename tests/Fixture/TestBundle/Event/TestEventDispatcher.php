@@ -24,7 +24,7 @@ final class TestEventDispatcher implements EventDispatcherInterface
      */
     private array $events = [];
 
-    public function dispatch(TestEvent $event): void
+    public function dispatch(EventInterface $event): void
     {
         $this->events[] = $event;
     }
