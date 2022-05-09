@@ -9,11 +9,11 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception;
+namespace Webmunkeez\CQRSBundle\Exception;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestException extends \Exception
+class EntityNotFoundException extends \RuntimeException
 {
 }

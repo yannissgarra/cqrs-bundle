@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestReadRepository;
 
@@ -54,6 +55,13 @@ final class TestReadRepositoryTest extends KernelTestCase
         $test = $this->repository->findOne(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'));
 
         $this->assertEquals('Test', $test->getTitle());
+    }
+
+    public function testReadException(): void
+    {
+        $this->expectException(TestNotFoundException::class);
+
+        $this->repository->findOne(Uuid::v4());
     }
 
     protected function tearDown(): void

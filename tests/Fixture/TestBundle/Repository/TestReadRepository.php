@@ -13,6 +13,7 @@ namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository;
 
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Doctrine\Repository\AbstractDoctrineDBALRepository;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
@@ -33,7 +34,7 @@ class TestReadRepository extends AbstractDoctrineDBALRepository
         $datas = $qb->executeQuery()->fetchAssociative();
 
         if (false === $datas) {
-            throw new \RuntimeException('Test not found.');
+            throw new TestNotFoundException();
         }
 
         return (new Test())
