@@ -18,5 +18,7 @@ use Symfony\Component\Uid\Uuid;
  */
 interface EntityInterface
 {
+    final public const UUID_REGEX = '^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$';
+
     public function getId(): Uuid;
 }
