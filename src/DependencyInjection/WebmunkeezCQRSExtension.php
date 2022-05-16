@@ -17,6 +17,8 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareInterface;
+use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
+use Webmunkeez\CQRSBundle\Messenger\MessengerEventDispatcher;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -30,5 +32,8 @@ final class WebmunkeezCQRSExtension extends Extension
 
         $container->registerForAutoconfiguration(EntityManagerAwareInterface::class)
             ->addMethodCall('setEntityManager', [new Reference('doctrine.orm.entity_manager')]);
+
+        $container->registerForAutoconfiguration(EventDispatcherAwareInterface::class)
+            ->addMethodCall('setEventDispatcher', [new Reference(MessengerEventDispatcher::class)]);
     }
 }
