@@ -40,54 +40,21 @@ final class TestWriteRepositoryTest extends KernelTestCase
         $metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->updateSchema($metaData);
-    }
 
-    public function testSave(): void
-    {
         $test = (new Test())
             ->setId(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'))
             ->setTitle('Test');
 
-        $this->repository->persist($test);
-        $this->repository->flush();
-
-        $this->assertCount(1, $this->repository->findAll());
-        $this->assertEquals('Test', $this->repository->findOneBy(['id' => Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910')])->getTitle());
+        $this->entityManager->persist($test);
+        $this->entityManager->flush();
     }
 
-    public function testUpdate(): void
+    public function testFind(): void
     {
-        $test = (new Test())
-            ->setId(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'))
-            ->setTitle('Test');
+        $test = $this->repository->find(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'));
 
-        $this->repository->persist($test);
-        $this->repository->flush();
-
-        $this->assertCount(1, $this->repository->findAll());
-
-        $test->setTitle('Test2');
-
-        $this->repository->flush();
-
-        $this->assertEquals('Test2', $this->repository->findOneBy(['id' => Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910')])->getTitle());
-    }
-
-    public function testRemove(): void
-    {
-        $test = (new Test())
-            ->setId(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'))
-            ->setTitle('Test');
-
-        $this->repository->persist($test);
-        $this->repository->flush();
-
-        $this->assertCount(1, $this->repository->findAll());
-
-        $this->repository->remove($test);
-        $this->repository->flush();
-
-        $this->assertCount(0, $this->repository->findAll());
+        $this->assertEquals('Test', $test->getTitle());
+        $this->assertInstanceOf(\DateTime::class, $test->getCreatedAt());
     }
 
     protected function tearDown(): void

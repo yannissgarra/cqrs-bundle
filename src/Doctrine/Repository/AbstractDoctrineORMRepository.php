@@ -12,25 +12,10 @@ declare(strict_types=1);
 namespace Webmunkeez\CQRSBundle\Doctrine\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Webmunkeez\CQRSBundle\Model\EntityInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 abstract class AbstractDoctrineORMRepository extends ServiceEntityRepository
 {
-    public function persist(EntityInterface $entity): void
-    {
-        $this->getEntityManager()->persist($entity);
-    }
-
-    public function remove(EntityInterface $entity): void
-    {
-        $this->getEntityManager()->remove($entity);
-    }
-
-    public function flush(): void
-    {
-        $this->getEntityManager()->flush();
-    }
 }
