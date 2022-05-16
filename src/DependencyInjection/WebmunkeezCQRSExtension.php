@@ -19,6 +19,8 @@ use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Messenger\MessengerEventDispatcher;
+use Webmunkeez\CQRSBundle\Validator\Validator;
+use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -29,11 +31,15 @@ final class WebmunkeezCQRSExtension extends Extension
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('dispatchers.php');
+        $loader->load('validator.php');
 
         $container->registerForAutoconfiguration(EntityManagerAwareInterface::class)
             ->addMethodCall('setEntityManager', [new Reference('doctrine.orm.entity_manager')]);
 
         $container->registerForAutoconfiguration(EventDispatcherAwareInterface::class)
             ->addMethodCall('setEventDispatcher', [new Reference(MessengerEventDispatcher::class)]);
+
+        $container->registerForAutoconfiguration(ValidatorAwareInterface::class)
+            ->addMethodCall('setValidator', [new Reference(Validator::class)]);
     }
 }

@@ -9,13 +9,10 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Command;
+namespace Webmunkeez\CQRSBundle\Event;
 
 use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareTrait;
-use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
-use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareTrait;
-use Webmunkeez\CQRSBundle\Event\EventInterface;
 use Webmunkeez\CQRSBundle\Model\EntityInterface;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareTrait;
@@ -23,10 +20,9 @@ use Webmunkeez\CQRSBundle\Validator\ValidatorAwareTrait;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-abstract class AbstractCommandHandler implements CommandHandlerInterface, EntityManagerAwareInterface, EventDispatcherAwareInterface, ValidatorAwareInterface
+abstract class AbstractEventHandler implements EventHandlerInterface, EntityManagerAwareInterface, ValidatorAwareInterface
 {
     use EntityManagerAwareTrait;
-    use EventDispatcherAwareTrait;
     use ValidatorAwareTrait;
 
     protected function persist(EntityInterface $entity): void
@@ -42,11 +38,6 @@ abstract class AbstractCommandHandler implements CommandHandlerInterface, Entity
     protected function flush(): void
     {
         $this->entityManager->flush();
-    }
-
-    protected function dispatch(EventInterface $event): void
-    {
-        $this->eventDispatcher->dispatch($event);
     }
 
     protected function validate(mixed $value): void
