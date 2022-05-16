@@ -28,8 +28,8 @@ class TestReadRepository extends AbstractDoctrineDBALRepository
         $qb->select('id', 'title')
             ->from('cqrs_test', 'test');
 
-        $qb->andWhere($qb->expr()->eq('id', ':id'))
-            ->setParameter('id', $id);
+        $qb->where($qb->expr()->eq('id', ':id'))
+            ->setParameter('id', $id->toBinary());
 
         $datas = $qb->executeQuery()->fetchAssociative();
 
