@@ -28,9 +28,10 @@ final class MessengerEventDispatcherTest extends KernelTestCase
         $event = (new TestEvent())->setName(TestEvent::NAME);
 
         $dispatcher = static::getContainer()->get(MessengerEventDispatcher::class);
-        $response = $dispatcher->dispatch($event);
 
-        $this->assertNull($response);
+        $this->expectNotToPerformAssertions();
+
+        $dispatcher->dispatch($event);
     }
 
     public function testDispatchException(): void
