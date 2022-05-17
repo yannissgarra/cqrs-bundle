@@ -31,7 +31,13 @@ final class Validator implements ValidatorInterface
         $violations = $this->validator->validate($value);
 
         if (count($violations) > 0) {
-            throw new ValidationException($violations);
+            $constraintViolations = [];
+
+            foreach ($violations as $violation) {
+                $constraintViolations[] = new ConstraintViolation($violation->getPropertyPath(), $violation->getMessage());
+            }
+
+            throw new ValidationException($constraintViolations);
         }
     }
 }

@@ -47,8 +47,13 @@ final class ValidatorTest extends KernelTestCase
         $test = (new ValidationTest())
             ->setTitle('');
 
-        $this->expectException(ValidationException::class);
+        try {
+            $this->validator->validate($test);
+        } catch (ValidationException $e) {
+            $this->assertCount(1, $e->getViolations());
+            $this->assertEquals('title', $e->getViolations()[0]->getPropertyPath());
 
-        $this->validator->validate($test);
+            return;
+        }
     }
 }

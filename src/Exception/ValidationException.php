@@ -11,16 +11,22 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Exception;
 
-use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Webmunkeez\CQRSBundle\Validator\ConstraintViolation;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 final class ValidationException extends \RuntimeException
 {
-    private ConstraintViolationListInterface $violations;
+    /**
+     * @var array<ConstraintViolation>
+     */
+    private array $violations;
 
-    public function __construct(ConstraintViolationListInterface $violations)
+    /**
+     * @param array<ConstraintViolation> $violations
+     */
+    public function __construct(array $violations)
     {
         parent::__construct();
 
@@ -28,7 +34,10 @@ final class ValidationException extends \RuntimeException
         $this->violations = $violations;
     }
 
-    public function getViolations(): ConstraintViolationListInterface
+    /**
+     * @return array<ConstraintViolation>
+     */
+    public function getViolations(): array
     {
         return $this->violations;
     }
