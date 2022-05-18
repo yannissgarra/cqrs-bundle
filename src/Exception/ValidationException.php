@@ -16,7 +16,7 @@ use Webmunkeez\CQRSBundle\Validator\ConstraintViolation;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class ValidationException extends \RuntimeException
+final class ValidationException extends RuntimeException
 {
     /**
      * @var array<ConstraintViolation>
