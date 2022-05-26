@@ -54,7 +54,7 @@ final class TestReadRepositoryTest extends KernelTestCase
     {
         $test = $this->repository->findOne(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'));
 
-        $this->assertEquals('Test', $test->getTitle());
+        $this->assertSame('Test', $test->getTitle());
     }
 
     public function testReadException(): void

@@ -28,7 +28,7 @@ final class CommandActionTest extends KernelTestCase
         $action = static::getContainer()->get(CommandAction::class);
         $response = $action->__invoke(TestCommand::NAME);
 
-        $this->assertEquals(TestCommand::NAME, $response);
+        $this->assertSame(TestCommand::NAME, $response);
     }
 
     public function testInvokeException(): void

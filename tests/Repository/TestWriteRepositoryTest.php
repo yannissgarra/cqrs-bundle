@@ -53,7 +53,7 @@ final class TestWriteRepositoryTest extends KernelTestCase
     {
         $test = $this->repository->find(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'));
 
-        $this->assertEquals('Test', $test->getTitle());
+        $this->assertSame('Test', $test->getTitle());
         $this->assertInstanceOf(\DateTime::class, $test->getCreatedAt());
     }
 

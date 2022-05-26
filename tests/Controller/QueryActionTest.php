@@ -28,7 +28,7 @@ final class QueryActionTest extends KernelTestCase
         $action = static::getContainer()->get(QueryAction::class);
         $response = $action->__invoke(TestQuery::NAME);
 
-        $this->assertEquals(TestQuery::NAME, $response);
+        $this->assertSame(TestQuery::NAME, $response);
     }
 
     public function testInvokeException(): void

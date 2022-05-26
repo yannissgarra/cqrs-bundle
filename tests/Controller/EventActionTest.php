@@ -28,7 +28,7 @@ final class EventActionTest extends KernelTestCase
         $action = static::getContainer()->get(EventAction::class);
         $response = $action->handle(TestEvent::NAME);
 
-        $this->assertEquals(TestEvent::NAME, $response);
+        $this->assertSame(TestEvent::NAME, $response);
     }
 
     public function testHandleException(): void
