@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model;
+namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,14 +25,14 @@ class Test extends AbstractEntity
 {
     #[ORM\Column(name: 'title', type: 'string', nullable: true)]
     #[Assert\NotBlank]
-    private ?string $title;
+    private string $title;
 
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 

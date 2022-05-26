@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestWriteRepository;
 
 /**
@@ -23,6 +23,11 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestWriteRepository
  */
 final class TestWriteRepositoryFunctionalTest extends KernelTestCase
 {
+    public const DATA = [
+        'id' => 'd5f891ef-180a-4a35-94cb-5e5c2cc9e5ca',
+        'title' => 'Test',
+    ];
+
     private ?EntityManager $entityManager;
     private TestWriteRepository $repository;
 
@@ -37,8 +42,8 @@ final class TestWriteRepositoryFunctionalTest extends KernelTestCase
         $this->repository = static::getContainer()->get(TestWriteRepository::class);
 
         $test = (new Test())
-            ->setId(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'))
-            ->setTitle('Test');
+            ->setId(Uuid::fromString(self::DATA['id']))
+            ->setTitle(self::DATA['title']);
 
         $this->entityManager->persist($test);
         $this->entityManager->flush();
@@ -46,9 +51,9 @@ final class TestWriteRepositoryFunctionalTest extends KernelTestCase
 
     public function testFindWithExistingIdShouldSucceed(): void
     {
-        $test = $this->repository->find(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'));
+        $test = $this->repository->find(Uuid::fromString(self::DATA['id']));
 
-        $this->assertSame('Test', $test->getTitle());
+        $this->assertSame(self::DATA['title'], $test->getTitle());
         $this->assertInstanceOf(\DateTime::class, $test->getCreatedAt());
     }
 

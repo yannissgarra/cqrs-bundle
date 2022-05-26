@@ -11,11 +11,25 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event;
 
+use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Event\EventInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestEvent implements EventInterface
+final class TestDeletedEvent implements EventInterface
 {
+    private Uuid $id;
+
+    public function getId(): Uuid
+    {
+        return $this->id;
+    }
+
+    public function setId(Uuid $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 }

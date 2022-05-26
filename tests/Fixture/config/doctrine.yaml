@@ -8,5 +8,5 @@ doctrine:
         mappings:
             Test:
                 type: attribute
-                dir: '%kernel.project_dir%/TestBundle/Model'
-                prefix: 'Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model'
+                dir: '%kernel.project_dir%/TestBundle/Entity'
+                prefix: 'Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity'

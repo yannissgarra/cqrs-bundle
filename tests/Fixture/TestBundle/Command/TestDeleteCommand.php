@@ -11,26 +11,26 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Command;
 
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 use Webmunkeez\CQRSBundle\Command\CommandInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestCommand implements CommandInterface
+final class TestDeleteCommand implements CommandInterface
 {
-    public const NAME = 'TestCommand';
-    public const NAME_FAILED = 'TestCommandFailed';
+    #[Assert\NotBlank]
+    private Uuid $id;
 
-    private string $name;
-
-    public function getName(): string
+    public function getId(): Uuid
     {
-        return $this->name;
+        return $this->id;
     }
 
-    public function setName(string $name): self
+    public function setId(Uuid $id): self
     {
-        $this->name = $name;
+        $this->id = $id;
 
         return $this;
     }

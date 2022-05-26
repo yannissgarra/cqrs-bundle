@@ -17,7 +17,7 @@ use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface as CoreValidatorInterface;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorInterface;
 
@@ -42,7 +42,7 @@ final class ValidatorTest extends TestCase
         $this->validator = new Validator($this->coreValidator);
     }
 
-    public function testValidateShouldSucceed(): void
+    public function testValidateWithTitleShouldSucceed(): void
     {
         $this->coreValidator->method('validate')->willReturn(new ConstraintViolationList());
 
@@ -53,23 +53,23 @@ final class ValidatorTest extends TestCase
         $this->validator->validate($test);
     }
 
-    public function testValidateShouldFail(): void
+    public function testValidateWithoutTitleShouldFail(): void
     {
         $this->coreValidator->method('validate')->willReturn(new ConstraintViolationList([
             new ConstraintViolation('Title should not be blank.', null, [], null, 'title', ''),
         ]));
 
-        $test = (new Test())->setTitle('');
+        $test = new Test();
 
         try {
             $this->validator->validate($test);
-
-            $this->fail();
         } catch (ValidationException $e) {
             $this->assertCount(1, $e->getViolations());
             $this->assertSame('title', $e->getViolations()[0]->getPropertyPath());
 
             return;
         }
+
+        $this->fail();
     }
 }

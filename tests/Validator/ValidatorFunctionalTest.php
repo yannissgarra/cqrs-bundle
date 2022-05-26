@@ -14,7 +14,7 @@ namespace Webmunkeez\CQRSBundle\Test\Validator;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorInterface;
 
@@ -27,7 +27,6 @@ final class ValidatorFunctionalTest extends KernelTestCase
 
     protected function setUp(): void
     {
-        // init database
         $entityManager = static::getContainer()->get('doctrine')->getManager();
         $metaData = $entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($entityManager);
@@ -36,7 +35,7 @@ final class ValidatorFunctionalTest extends KernelTestCase
         $this->validator = static::getContainer()->get(Validator::class);
     }
 
-    public function testValidateShouldSucceed(): void
+    public function testValidateWithTitleShouldSucceed(): void
     {
         $test = (new Test())->setTitle('Test');
 
@@ -45,19 +44,19 @@ final class ValidatorFunctionalTest extends KernelTestCase
         $this->validator->validate($test);
     }
 
-    public function testValidateShouldFail(): void
+    public function testValidateWithoutTitleShouldFail(): void
     {
-        $test = (new Test())->setTitle('');
+        $test = new Test();
 
         try {
             $this->validator->validate($test);
-
-            $this->fail();
         } catch (ValidationException $e) {
             $this->assertCount(1, $e->getViolations());
             $this->assertSame('title', $e->getViolations()[0]->getPropertyPath());
 
             return;
         }
+
+        $this->fail();
     }
 }

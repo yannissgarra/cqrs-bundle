@@ -13,8 +13,8 @@ namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository;
 
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Doctrine\Repository\AbstractDoctrineDBALRepository;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
