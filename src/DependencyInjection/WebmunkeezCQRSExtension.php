@@ -14,10 +14,12 @@ namespace Webmunkeez\CQRSBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
+use Webmunkeez\CQRSBundle\Event\EventInterface;
 use Webmunkeez\CQRSBundle\Messenger\MessengerEventDispatcher;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
@@ -25,7 +27,7 @@ use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class WebmunkeezCQRSExtension extends Extension
+final class WebmunkeezCQRSExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -42,5 +44,40 @@ final class WebmunkeezCQRSExtension extends Extension
 
         $container->registerForAutoconfiguration(ValidatorAwareInterface::class)
             ->addMethodCall('setValidator', [new Reference(Validator::class)]);
+    }
+
+    public function prepend(ContainerBuilder $container)
+    {
+        // define default config for messenger
+        $container->prependExtensionConfig('framework', [
+            'messenger' => [
+                'failure_transport' => 'failed',
+                'transports' => [
+                    'async' => $this->defineTransport('async', $container->getParameter('kernel.environment')),
+                    'failed' => $this->defineTransport('failed', $container->getParameter('kernel.environment')),
+                ],
+                'routing' => [
+                    EventInterface::class => 'async',
+                ],
+            ],
+        ]);
+    }
+
+    private function defineTransport(string $name, string $environment): array
+    {
+        if ('test' === $environment) {
+            return [
+                'dsn' => 'in-memory://',
+            ];
+        }
+
+        return [
+            'dsn' => 'doctrine://default',
+            'options' => [
+                'table_name' => 'msgr_message',
+                'queue_name' => $name,
+                'auto_setup' => 'false',
+            ],
+        ];
     }
 }

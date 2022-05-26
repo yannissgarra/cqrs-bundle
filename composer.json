@@ -33,7 +33,8 @@
         "symfony/property-info": "^6.0",
         "symfony/serializer": "^6.0",
         "symfony/uid": "^6.0",
-        "symfony/validator": "^6.0"
+        "symfony/validator": "^6.0",
+        "symfony/doctrine-messenger": "^6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
