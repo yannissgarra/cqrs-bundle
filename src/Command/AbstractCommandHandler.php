@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Command;
 
-use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareInterface;
-use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareTrait;
+use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
+use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareTrait;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareTrait;
 use Webmunkeez\CQRSBundle\Event\EventInterface;

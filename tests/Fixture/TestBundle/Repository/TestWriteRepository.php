@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Webmunkeez\CQRSBundle\Doctrine\Repository\AbstractDoctrineORMRepository;
+use Webmunkeez\CQRSBundle\Doctrine\ORM\AbstractDoctrineORMRepository;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
 
 /**

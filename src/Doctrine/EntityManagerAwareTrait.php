@@ -9,14 +9,19 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Doctrine\Repository;
+namespace Webmunkeez\CQRSBundle\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-interface EntityManagerAwareInterface
+trait EntityManagerAwareTrait
 {
-    public function setEntityManager(EntityManagerInterface $entityManager): void;
+    protected EntityManagerInterface $entityManager;
+
+    public function setEntityManager(EntityManagerInterface $entityManager): void
+    {
+        $this->entityManager = $entityManager;
+    }
 }

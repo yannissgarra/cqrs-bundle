@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
-use Webmunkeez\CQRSBundle\Doctrine\Repository\EntityManagerAwareInterface;
+use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventInterface;
 use Webmunkeez\CQRSBundle\Messenger\MessengerEventDispatcher;

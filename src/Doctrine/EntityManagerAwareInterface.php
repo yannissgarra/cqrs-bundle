@@ -9,13 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Doctrine\Repository;
+namespace Webmunkeez\CQRSBundle\Doctrine;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-abstract class AbstractDoctrineORMRepository extends ServiceEntityRepository
+interface EntityManagerAwareInterface
 {
+    public function setEntityManager(EntityManagerInterface $entityManager): void;
 }

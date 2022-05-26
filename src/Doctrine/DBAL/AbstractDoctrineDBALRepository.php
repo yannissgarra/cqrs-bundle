@@ -9,9 +9,11 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Doctrine\Repository;
+namespace Webmunkeez\CQRSBundle\Doctrine\DBAL;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
+use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareTrait;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
