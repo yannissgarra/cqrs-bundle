@@ -15,31 +15,27 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestWriteRepository;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestReadRepository;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestWriteRepositoryTest extends KernelTestCase
+final class TestReadRepositoryFunctionalTest extends KernelTestCase
 {
     private ?EntityManager $entityManager;
-    private TestWriteRepository $repository;
+    private TestReadRepository $repository;
 
     protected function setUp(): void
     {
-        self::bootKernel();
-
-        $this->entityManager = static::getContainer()
-            ->get('doctrine')
-            ->getManager();
-
-        $this->repository = static::getContainer()
-            ->get(TestWriteRepository::class);
+        $this->entityManager = static::getContainer()->get('doctrine')->getManager();
 
         $metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->updateSchema($metaData);
+
+        $this->repository = static::getContainer()->get(TestReadRepository::class);
 
         $test = (new Test())
             ->setId(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'))
@@ -49,12 +45,18 @@ final class TestWriteRepositoryTest extends KernelTestCase
         $this->entityManager->flush();
     }
 
-    public function testFind(): void
+    public function testFindOneWithExistingIdShouldSucceed(): void
     {
-        $test = $this->repository->find(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'));
+        $test = $this->repository->findOne(Uuid::fromString('592860e5-b215-49f5-96d2-a184169af910'));
 
         $this->assertSame('Test', $test->getTitle());
-        $this->assertInstanceOf(\DateTime::class, $test->getCreatedAt());
+    }
+
+    public function testFindOneWithNotExistingIdShouldFail(): void
+    {
+        $this->expectException(TestNotFoundException::class);
+
+        $this->repository->findOne(Uuid::v4());
     }
 
     protected function tearDown(): void
