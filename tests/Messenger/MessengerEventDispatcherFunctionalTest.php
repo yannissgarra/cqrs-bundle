@@ -13,37 +13,37 @@ namespace Webmunkeez\CQRSBundle\Test\Messenger;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Webmunkeez\CQRSBundle\Event\EventDispatcherInterface;
 use Webmunkeez\CQRSBundle\Messenger\MessengerEventDispatcher;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestEvent;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class MessengerEventDispatcherTest extends KernelTestCase
+final class MessengerEventDispatcherFunctionalTest extends KernelTestCase
 {
-    public function testDispatch(): void
+    private EventDispatcherInterface $dispatcher;
+
+    protected function setUp(): void
     {
-        self::bootKernel();
+        $this->dispatcher = static::getContainer()->get(MessengerEventDispatcher::class);
+    }
 
+    public function testDispatchShouldSucceed(): void
+    {
         $event = (new TestEvent())->setName(TestEvent::NAME);
-
-        $dispatcher = static::getContainer()->get(MessengerEventDispatcher::class);
 
         $this->expectNotToPerformAssertions();
 
-        $dispatcher->dispatch($event);
+        $this->dispatcher->dispatch($event);
     }
 
-    public function testDispatchException(): void
+    public function testDispatchShouldFail(): void
     {
-        self::bootKernel();
-
         $event = (new TestEvent())->setName(TestEvent::NAME_FAILED);
-
-        $dispatcher = static::getContainer()->get(MessengerEventDispatcher::class);
 
         $this->expectException(HandlerFailedException::class);
 
-        $dispatcher->dispatch($event);
+        $this->dispatcher->dispatch($event);
     }
 }
