@@ -11,10 +11,10 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use Webmunkeez\CQRSBundle\Serializer\Normalizer\ValidationExceptionNormalizer;
+use Webmunkeez\CQRSBundle\Serializer\Normalizer\ValidationHttpExceptionNormalizer;
 
 return static function (ContainerConfigurator $container) {
     $container->services()
-        ->set(ValidationExceptionNormalizer::class)
-            ->tag('serializer.normalizer');
+        ->set(ValidationHttpExceptionNormalizer::class)
+            ->tag('serializer.normalizer', ['priority' => 10]);
 };

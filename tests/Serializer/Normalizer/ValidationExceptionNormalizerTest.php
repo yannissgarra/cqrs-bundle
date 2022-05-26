@@ -11,34 +11,57 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Serializer\Normalizer;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
+use Webmunkeez\CQRSBundle\Exception\ValidationHttpException;
+use Webmunkeez\CQRSBundle\Serializer\Normalizer\ValidationHttpExceptionNormalizer;
 use Webmunkeez\CQRSBundle\Validator\ConstraintViolation;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class ValidationExceptionNormalizerTest extends KernelTestCase
+final class ValidationExceptionNormalizerTest extends TestCase
 {
-    private SerializerInterface $serializer;
+    public const DATA = [
+        'violation' => [
+            'propertyPath' => 'field',
+            'message' => 'This field is not valid.',
+        ],
+    ];
+
+    /**
+     * @var NormalizerInterface&MockObject
+     **/
+    private NormalizerInterface $coreNormalizer;
+
+    private ValidationHttpExceptionNormalizer $normalizer;
 
     protected function setUp(): void
     {
-        self::bootKernel();
+        /** @var NormalizerInterface&MockObject $coreNormalizer */
+        $coreNormalizer = $this->getMockBuilder(NormalizerInterface::class)->disableOriginalConstructor()->getMock();
+        $this->coreNormalizer = $coreNormalizer;
 
-        $this->serializer = static::getContainer()->get('serializer');
+        $this->normalizer = new ValidationHttpExceptionNormalizer();
+        $this->normalizer->setNormalizer($this->coreNormalizer);
     }
 
-    public function testNormalize(): void
+    public function testNormalizeWithValidationHttpExceptionShouldSucceed(): void
     {
-        $exception = new ValidationException([
-            new ConstraintViolation('field', 'This field is not valid.'),
-        ]);
+        $this->coreNormalizer->method('normalize')->willReturn([self::DATA['violation']]);
 
-        $json = $this->serializer->serialize($exception, JsonEncoder::FORMAT);
+        $exception = new ValidationHttpException(new ValidationException([
+            new ConstraintViolation(self::DATA['violation']['propertyPath'], self::DATA['violation']['message']),
+        ]));
 
-        $this->assertEquals('{"message":"","code":0,"violations":[{"propertyPath":"field","message":"This field is not valid."}]}', $json);
+        $data = $this->normalizer->normalize($exception);
+
+        $this->assertSame('An exception occurred during validation process.', $data['message']);
+        $this->assertSame(0, $data['code']);
+        $this->assertCount(1, $data['violations']);
+        $this->assertSame(self::DATA['violation']['propertyPath'], $data['violations'][0]['propertyPath']);
+        $this->assertSame(self::DATA['violation']['message'], $data['violations'][0]['message']);
     }
 }

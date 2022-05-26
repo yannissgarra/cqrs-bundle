@@ -28,7 +28,7 @@ final class ValidationException extends RuntimeException
      */
     public function __construct(array $violations)
     {
-        parent::__construct();
+        parent::__construct('An exception occurred during validation process.');
 
         // init values
         $this->violations = $violations;
