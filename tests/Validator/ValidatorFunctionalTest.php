@@ -11,11 +11,8 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Validator;
 
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\ConstraintViolation;
-use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Validator\ValidatorInterface as CoreValidatorInterface;
+use Doctrine\ORM\Tools\SchemaTool;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Validator\Validator;
@@ -24,41 +21,32 @@ use Webmunkeez\CQRSBundle\Validator\ValidatorInterface;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class ValidatorTest extends TestCase
+final class ValidatorFunctionalTest extends KernelTestCase
 {
-    /**
-     * @var CoreValidatorInterface&MockObject
-     **/
-    private CoreValidatorInterface $coreValidator;
-
     private ValidatorInterface $validator;
 
     protected function setUp(): void
     {
-        /** @var CoreValidatorInterface&MockObject $coreValidator */
-        $coreValidator = $this->getMockBuilder(CoreValidatorInterface::class)->disableOriginalConstructor()->getMock();
-        $this->coreValidator = $coreValidator;
+        // init database
+        $entityManager = static::getContainer()->get('doctrine')->getManager();
+        $metaData = $entityManager->getMetadataFactory()->getAllMetadata();
+        $schemaTool = new SchemaTool($entityManager);
+        $schemaTool->updateSchema($metaData);
 
-        $this->validator = new Validator($this->coreValidator);
+        $this->validator = static::getContainer()->get(Validator::class);
     }
 
     public function testValidateShouldSucceed(): void
     {
-        $this->coreValidator->method('validate')->willReturn(new ConstraintViolationList());
+        $test = (new Test())->setTitle('Test');
 
         $this->expectNotToPerformAssertions();
-
-        $test = (new Test())->setTitle('Test');
 
         $this->validator->validate($test);
     }
 
     public function testValidateShouldFail(): void
     {
-        $this->coreValidator->method('validate')->willReturn(new ConstraintViolationList([
-            new ConstraintViolation('Title should not be blank.', null, [], null, 'title', ''),
-        ]));
-
         $test = (new Test())->setTitle('');
 
         try {
