@@ -20,7 +20,7 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundExceptio
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestDeleteActionTest extends AbstractActionTest
+final class TestDeleteActionFunctionalTest extends AbstractActionFunctionalTest
 {
     private TestDeleteAction $action;
 

@@ -20,7 +20,7 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestCreatedEvent;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestCreateActionTest extends AbstractActionTest
+final class TestCreateActionFunctionalTest extends AbstractActionFunctionalTest
 {
     private TestCreateAction $action;
 

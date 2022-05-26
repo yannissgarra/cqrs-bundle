@@ -21,7 +21,7 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundExceptio
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestUpdateActionTest extends AbstractActionTest
+final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
 {
     private TestUpdateAction $action;
 

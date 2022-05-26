@@ -20,7 +20,7 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestWriteRepository
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-abstract class AbstractActionTest extends KernelTestCase
+abstract class AbstractActionFunctionalTest extends KernelTestCase
 {
     public const DATA = [
         'id' => 'd5f891ef-180a-4a35-94cb-5e5c2cc9e5ca',
