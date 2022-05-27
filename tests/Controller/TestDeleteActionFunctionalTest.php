@@ -13,7 +13,7 @@ namespace Webmunkeez\CQRSBundle\Test\Controller;
 
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller\TestDeleteAction;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestDeletedEvent;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
 

@@ -14,7 +14,7 @@ namespace Webmunkeez\CQRSBundle\Test\Validator;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorInterface;
 

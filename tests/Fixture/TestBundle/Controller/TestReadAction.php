@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller;
 
 use Symfony\Component\Uid\Uuid;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Query\TestReadQuery;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Query\TestReadQueryHandler;
 

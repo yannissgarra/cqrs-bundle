@@ -13,7 +13,7 @@ namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Webmunkeez\CQRSBundle\Doctrine\ORM\AbstractDoctrineORMRepository;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity\Test;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

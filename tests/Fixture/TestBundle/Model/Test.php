@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Entity;
+namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
