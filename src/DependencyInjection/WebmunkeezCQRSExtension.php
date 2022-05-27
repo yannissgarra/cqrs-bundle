@@ -51,6 +51,9 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
     {
         // define default config for messenger
         $container->prependExtensionConfig('framework', [
+            'serializer' => [
+                'name_converter' => 'serializer.name_converter.camel_case_to_snake_case',
+            ],
             'messenger' => [
                 'failure_transport' => 'failed',
                 'transports' => [

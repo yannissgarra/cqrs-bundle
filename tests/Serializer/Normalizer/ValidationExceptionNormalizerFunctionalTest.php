@@ -38,6 +38,6 @@ final class ValidationExceptionNormalizerFunctionalTest extends KernelTestCase
 
         $json = $this->serializer->serialize($exception, JsonEncoder::FORMAT);
 
-        $this->assertSame('{"message":"","code":0,"violations":[{"propertyPath":"field","message":"This field is not valid."}]}', $json);
+        $this->assertSame('{"message":"","code":0,"violations":[{"property_path":"field","message":"This field is not valid."}]}', $json);
     }
 }

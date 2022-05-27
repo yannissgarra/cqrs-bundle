@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Validator;
 
+use Symfony\Component\String\UnicodeString;
 use Symfony\Component\Validator\Validator\ValidatorInterface as CoreValidatorInterface;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
 
@@ -34,7 +35,7 @@ final class Validator implements ValidatorInterface
             $constraintViolations = [];
 
             foreach ($violations as $violation) {
-                $constraintViolations[] = new ConstraintViolation($violation->getPropertyPath(), $violation->getMessage());
+                $constraintViolations[] = new ConstraintViolation((new UnicodeString($violation->getPropertyPath()))->snake()->toString(), $violation->getMessage());
             }
 
             throw new ValidationException($constraintViolations);

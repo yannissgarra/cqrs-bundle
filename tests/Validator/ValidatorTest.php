@@ -56,7 +56,7 @@ final class ValidatorTest extends TestCase
     public function testValidateWithoutTitleShouldFail(): void
     {
         $this->coreValidator->method('validate')->willReturn(new ConstraintViolationList([
-            new ConstraintViolation('Title should not be blank.', null, [], null, 'title', ''),
+            new ConstraintViolation('Title should not be blank.', null, [], null, 'titleField', ''),
         ]));
 
         $test = new Test();
@@ -65,7 +65,7 @@ final class ValidatorTest extends TestCase
             $this->validator->validate($test);
         } catch (ValidationException $e) {
             $this->assertCount(1, $e->getViolations());
-            $this->assertSame('title', $e->getViolations()[0]->getPropertyPath());
+            $this->assertSame('title_field', $e->getViolations()[0]->getPropertyPath());
 
             return;
         }
