@@ -1,6 +1,7 @@
 framework:
     test: true
     secret: test
+    http_method_override: false
 
 services:
     # default configuration for services in *this* file

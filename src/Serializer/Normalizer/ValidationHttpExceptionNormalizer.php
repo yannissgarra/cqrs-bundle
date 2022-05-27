@@ -42,7 +42,7 @@ final class ValidationHttpExceptionNormalizer implements NormalizerInterface, No
         ];
     }
 
-    public function supportsNormalization($data, string $format = null): bool
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof ValidationHttpException;
     }
