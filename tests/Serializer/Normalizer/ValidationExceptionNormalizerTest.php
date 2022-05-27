@@ -52,13 +52,13 @@ final class ValidationExceptionNormalizerTest extends TestCase
     {
         $this->coreNormalizer->method('normalize')->willReturn([self::DATA['violation']]);
 
-        $exception = new ValidationHttpException(new ValidationException([
+        $exception = new ValidationHttpException('', new ValidationException([
             new ConstraintViolation(self::DATA['violation']['propertyPath'], self::DATA['violation']['message']),
         ]));
 
         $data = $this->normalizer->normalize($exception);
 
-        $this->assertSame('An exception occurred during validation process.', $data['message']);
+        $this->assertSame('', $data['message']);
         $this->assertSame(0, $data['code']);
         $this->assertCount(1, $data['violations']);
         $this->assertSame(self::DATA['violation']['propertyPath'], $data['violations'][0]['propertyPath']);

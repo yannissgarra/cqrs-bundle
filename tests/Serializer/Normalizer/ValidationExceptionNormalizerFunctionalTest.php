@@ -32,12 +32,12 @@ final class ValidationExceptionNormalizerFunctionalTest extends KernelTestCase
 
     public function testNormalizeWithValidationHttpExceptionShouldSucceed(): void
     {
-        $exception = new ValidationHttpException(new ValidationException([
+        $exception = new ValidationHttpException('', new ValidationException([
             new ConstraintViolation('field', 'This field is not valid.'),
         ]));
 
         $json = $this->serializer->serialize($exception, JsonEncoder::FORMAT);
 
-        $this->assertSame('{"message":"An exception occurred during validation process.","code":0,"violations":[{"propertyPath":"field","message":"This field is not valid."}]}', $json);
+        $this->assertSame('{"message":"","code":0,"violations":[{"propertyPath":"field","message":"This field is not valid."}]}', $json);
     }
 }

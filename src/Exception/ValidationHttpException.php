@@ -18,8 +18,8 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
  */
 final class ValidationHttpException extends UnprocessableEntityHttpException
 {
-    public function __construct(ValidationException $previous)
+    public function __construct(string $message, ValidationException $previous, int $code = 0, array $headers = [])
     {
-        parent::__construct($previous->getMessage(), $previous, $previous->getCode(), []);
+        parent::__construct($message, $previous, $code, $headers);
     }
 }
