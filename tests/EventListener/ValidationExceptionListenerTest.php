@@ -60,4 +60,17 @@ final class ValidationExceptionListenerTest extends TestCase
         $this->assertInstanceOf(ValidationException::class, $event->getThrowable()->getPrevious());
         $this->assertSame($exception, $event->getThrowable()->getPrevious());
     }
+
+    public function testWithOtherExceptionShouldFail(): void
+    {
+        $exception = new \Exception();
+
+        $request = new Request();
+
+        $event = new ExceptionEvent($this->kernel, $request, HttpKernelInterface::MAIN_REQUEST, $exception);
+
+        $this->listener->onKernelException($event);
+
+        $this->assertInstanceOf(\Exception::class, $event->getThrowable());
+    }
 }
