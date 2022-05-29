@@ -52,5 +52,10 @@
         "psr-4": {
             "Webmunkeez\\CQRSBundle\\Test\\": "tests/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "2.0.x-dev"
+        }
     }
 }
