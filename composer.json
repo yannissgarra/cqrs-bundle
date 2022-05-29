@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "php": ">=8.1.0",
+        "php": ">=8.1",
         "phpdocumentor/reflection-docblock": "^5.3",
         "doctrine/doctrine-bundle": "^2.6",
         "doctrine/orm": "^2.12",
@@ -51,11 +51,6 @@
     "autoload-dev": {
         "psr-4": {
             "Webmunkeez\\CQRSBundle\\Test\\": "tests/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0.x-dev"
         }
     }
 }
