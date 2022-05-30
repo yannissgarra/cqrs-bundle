@@ -22,4 +22,9 @@ trait EventDispatcherAwareTrait
     {
         $this->eventDispatcher = $eventDispatcher;
     }
+
+    protected function dispatch(EventInterface $event): void
+    {
+        $this->eventDispatcher->dispatch($event);
+    }
 }

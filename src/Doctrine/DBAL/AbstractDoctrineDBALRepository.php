@@ -12,15 +12,20 @@ declare(strict_types=1);
 namespace Webmunkeez\CQRSBundle\Doctrine\DBAL;
 
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
-use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareTrait;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
 abstract class AbstractDoctrineDBALRepository implements EntityManagerAwareInterface
 {
-    use EntityManagerAwareTrait;
+    private EntityManagerInterface $entityManager;
+
+    public function setEntityManager(EntityManagerInterface $entityManager): void
+    {
+        $this->entityManager = $entityManager;
+    }
 
     protected function createQueryBuilder(): QueryBuilder
     {

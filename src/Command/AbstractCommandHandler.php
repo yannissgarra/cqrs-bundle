@@ -15,8 +15,6 @@ use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareTrait;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareTrait;
-use Webmunkeez\CQRSBundle\Event\EventInterface;
-use Webmunkeez\CQRSBundle\Model\EntityInterface;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareTrait;
 
@@ -28,29 +26,4 @@ abstract class AbstractCommandHandler implements CommandHandlerInterface, Entity
     use EntityManagerAwareTrait;
     use EventDispatcherAwareTrait;
     use ValidatorAwareTrait;
-
-    protected function persist(EntityInterface $entity): void
-    {
-        $this->entityManager->persist($entity);
-    }
-
-    protected function remove(EntityInterface $entity): void
-    {
-        $this->entityManager->remove($entity);
-    }
-
-    protected function flush(): void
-    {
-        $this->entityManager->flush();
-    }
-
-    protected function dispatch(EventInterface $event): void
-    {
-        $this->eventDispatcher->dispatch($event);
-    }
-
-    protected function validate(mixed $value): void
-    {
-        $this->validator->validate($value);
-    }
 }

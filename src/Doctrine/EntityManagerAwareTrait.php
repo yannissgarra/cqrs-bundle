@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\CQRSBundle\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Webmunkeez\CQRSBundle\Model\EntityInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -23,5 +24,20 @@ trait EntityManagerAwareTrait
     public function setEntityManager(EntityManagerInterface $entityManager): void
     {
         $this->entityManager = $entityManager;
+    }
+
+    protected function persist(EntityInterface $entity): void
+    {
+        $this->entityManager->persist($entity);
+    }
+
+    protected function remove(EntityInterface $entity): void
+    {
+        $this->entityManager->remove($entity);
+    }
+
+    protected function flush(): void
+    {
+        $this->entityManager->flush();
     }
 }

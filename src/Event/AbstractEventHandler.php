@@ -20,9 +20,4 @@ use Webmunkeez\CQRSBundle\Validator\ValidatorAwareTrait;
 abstract class AbstractEventHandler implements EventHandlerInterface, ValidatorAwareInterface
 {
     use ValidatorAwareTrait;
-
-    protected function validate(mixed $value): void
-    {
-        $this->validator->validate($value);
-    }
 }

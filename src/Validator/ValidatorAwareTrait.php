@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Validator;
 
+use Webmunkeez\CQRSBundle\Exception\ValidationException;
+
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
@@ -21,5 +23,13 @@ trait ValidatorAwareTrait
     public function setValidator(ValidatorInterface $validator): void
     {
         $this->validator = $validator;
+    }
+
+    /**
+     * @throws ValidationException
+     */
+    protected function validate(mixed $value): void
+    {
+        $this->validator->validate($value);
     }
 }
