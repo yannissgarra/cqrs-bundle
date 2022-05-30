@@ -13,8 +13,8 @@ namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Command;
 
 use Webmunkeez\CQRSBundle\Command\AbstractCommandHandler;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestCreatedEvent;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

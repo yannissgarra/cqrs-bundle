@@ -14,8 +14,8 @@ namespace Webmunkeez\CQRSBundle\Test\Controller;
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller\TestReadAction;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>

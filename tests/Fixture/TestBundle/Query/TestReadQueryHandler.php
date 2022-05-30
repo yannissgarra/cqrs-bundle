@@ -13,8 +13,8 @@ namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Query;
 
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
 use Webmunkeez\CQRSBundle\Query\AbstractQueryHandler;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestReadRepository;
 
 /**
