@@ -18,6 +18,8 @@ return static function (ContainerConfigurator $container) {
     $container->services()
         ->set(MessengerEventDispatcher::class)
             ->args([service('messenger.bus.default')])
+
         ->set(EventDispatcherInterface::class)
-            ->alias(EventDispatcherInterface::class, MessengerEventDispatcher::class);
+
+        ->alias(EventDispatcherInterface::class, MessengerEventDispatcher::class);
 };

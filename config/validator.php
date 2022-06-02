@@ -18,6 +18,8 @@ return static function (ContainerConfigurator $container) {
     $container->services()
         ->set(Validator::class)
             ->args([service('validator')])
+
         ->set(ValidatorInterface::class)
-            ->alias(ValidatorInterface::class, Validator::class);
+
+        ->alias(ValidatorInterface::class, Validator::class);
 };
