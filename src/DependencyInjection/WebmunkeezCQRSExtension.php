@@ -32,8 +32,8 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('dispatchers.php');
-        $loader->load('event_listeners.php');
+        $loader->load('dispatcher.php');
+        $loader->load('event_listener.php');
         $loader->load('serializer.php');
         $loader->load('validator.php');
 
