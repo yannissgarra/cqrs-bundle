@@ -11,10 +11,14 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Webmunkeez\CQRSBundle\EventListener\EntityNotFoundExceptionListener;
 use Webmunkeez\CQRSBundle\EventListener\ValidationExceptionListener;
 
 return function (ContainerConfigurator $container) {
     $container->services()
         ->set(ValidationExceptionListener::class)
+            ->tag('kernel.event_listener', ['event' => 'kernel.exception', 'priority' => 20])
+
+        ->set(EntityNotFoundExceptionListener::class)
             ->tag('kernel.event_listener', ['event' => 'kernel.exception', 'priority' => 20]);
 };
