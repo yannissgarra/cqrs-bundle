@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository;
 
 use Symfony\Component\Uid\Uuid;
-use Webmunkeez\CQRSBundle\Doctrine\DBAL\AbstractDoctrineDBALRepository;
+use Webmunkeez\CQRSBundle\Doctrine\DBAL\Repository\AbstractDoctrineDBALRepository;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 

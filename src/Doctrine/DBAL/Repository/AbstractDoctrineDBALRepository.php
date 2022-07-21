@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Doctrine\DBAL;
+namespace Webmunkeez\CQRSBundle\Doctrine\DBAL\Repository;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
