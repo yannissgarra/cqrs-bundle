@@ -51,7 +51,7 @@ final class TestDeleteActionFunctionalTest extends AbstractActionFunctionalTest
         /** @var TestDeletedEvent $event */
         $event = $this->asyncTransport->get()[0]->getMessage();
         $this->assertInstanceOf(TestDeletedEvent::class, $event);
-        $this->assertSame(self::DATA['id'], $event->getId()->toRfc4122());
+        $this->assertTrue($event->getId()->equals(Uuid::fromString(self::DATA['id'])));
     }
 
     public function testInvokeWithNotExistingIdShouldFail(): void
@@ -62,7 +62,7 @@ final class TestDeleteActionFunctionalTest extends AbstractActionFunctionalTest
             // test entity has not been deleted
             $entity = $this->testRepository->findOneBy(['id' => Uuid::fromString(self::DATA['id'])]);
             $this->assertInstanceOf(Test::class, $entity);
-            $this->assertSame(self::DATA['id'], $entity->getId()->toRfc4122());
+            $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
             $this->assertSame(self::DATA['title'], $entity->getTitle());
 
             // test event has not been sent

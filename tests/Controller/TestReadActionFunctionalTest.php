@@ -43,7 +43,7 @@ final class TestReadActionFunctionalTest extends AbstractActionFunctionalTest
         $response = $this->action->__invoke(Uuid::fromString(self::DATA['id']));
 
         $this->assertInstanceOf(Test::class, $response);
-        $this->assertSame(self::DATA['id'], $response->getId()->toRfc4122());
+        $this->assertTrue($response->getId()->equals(Uuid::fromString(self::DATA['id'])));
         $this->assertSame(self::DATA['title'], $response->getTitle());
     }
 

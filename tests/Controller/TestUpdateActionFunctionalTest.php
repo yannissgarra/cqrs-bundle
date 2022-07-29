@@ -46,7 +46,7 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
         // test entity has been updated
         $entity = $this->testRepository->findOneBy(['id' => Uuid::fromString(self::DATA['id'])]);
         $this->assertInstanceOf(Test::class, $entity);
-        $this->assertSame(self::DATA['id'], $entity->getId()->toRfc4122());
+        $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
         $this->assertSame('Test2', $entity->getTitle());
 
         // test event has been sent
@@ -54,7 +54,7 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
         /** @var TestUpdatedEvent $event */
         $event = $this->asyncTransport->get()[0]->getMessage();
         $this->assertInstanceOf(TestUpdatedEvent::class, $event);
-        $this->assertSame(self::DATA['id'], $event->getId()->toRfc4122());
+        $this->assertTrue($event->getId()->equals(Uuid::fromString(self::DATA['id'])));
         $this->assertSame('Test2', $event->getTitle());
     }
 
@@ -66,7 +66,7 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
             // test entity has not been updated
             $entity = $this->testRepository->findOneBy(['id' => Uuid::fromString(self::DATA['id'])]);
             $this->assertInstanceOf(Test::class, $entity);
-            $this->assertSame(self::DATA['id'], $entity->getId()->toRfc4122());
+            $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
             $this->assertSame(self::DATA['title'], $entity->getTitle());
 
             // test event has not been sent
@@ -89,7 +89,7 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
             // test entity has not been updated
             $entity = $this->testRepository->findOneBy(['id' => Uuid::fromString(self::DATA['id'])]);
             $this->assertInstanceOf(Test::class, $entity);
-            $this->assertSame(self::DATA['id'], $entity->getId()->toRfc4122());
+            $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
             $this->assertSame(self::DATA['title'], $entity->getTitle());
 
             // test event has not been sent

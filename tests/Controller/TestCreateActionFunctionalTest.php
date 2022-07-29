@@ -38,7 +38,7 @@ final class TestCreateActionFunctionalTest extends AbstractActionFunctionalTest
         // test entity has been created
         $entity = $this->testRepository->findOneBy(['id' => Uuid::fromString(self::DATA['id'])]);
         $this->assertInstanceOf(Test::class, $entity);
-        $this->assertSame(self::DATA['id'], $entity->getId()->toRfc4122());
+        $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
         $this->assertSame(self::DATA['title'], $entity->getTitle());
 
         // test event has been sent
@@ -46,7 +46,7 @@ final class TestCreateActionFunctionalTest extends AbstractActionFunctionalTest
         /** @var TestCreatedEvent $event */
         $event = $this->asyncTransport->get()[0]->getMessage();
         $this->assertInstanceOf(TestCreatedEvent::class, $event);
-        $this->assertSame(self::DATA['id'], $event->getId()->toRfc4122());
+        $this->assertTrue($event->getId()->equals(Uuid::fromString(self::DATA['id'])));
         $this->assertSame(self::DATA['title'], $event->getTitle());
     }
 
