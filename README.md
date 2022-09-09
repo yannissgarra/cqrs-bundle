@@ -17,7 +17,7 @@ Add the bundle in your application kernel:
 
 return [
     // ...
-    Webmunkeez\ADRBundle\WebmunkeezCQRSBundle::class => ['all' => true],
+    Webmunkeez\CQRSBundle\WebmunkeezCQRSBundle::class => ['all' => true],
     // ...
 ];
 ```
