@@ -21,6 +21,10 @@ use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcher;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventHandlerInterface;
+use Webmunkeez\CQRSBundle\Message\MessageDispatcher;
+use Webmunkeez\CQRSBundle\Message\MessageDispatcherAwareInterface;
+use Webmunkeez\CQRSBundle\Message\MessageHandlerInterface;
+use Webmunkeez\CQRSBundle\Message\MessageInterface;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 
@@ -34,6 +38,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('event.php');
         $loader->load('event_listener.php');
+        $loader->load('message.php');
         $loader->load('serializer.php');
         $loader->load('validator.php');
 
@@ -45,6 +50,12 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
 
         $container->registerForAutoconfiguration(EventHandlerInterface::class)
             ->addTag('webmunkeez_cqrs.event_handler');
+
+        $container->registerForAutoconfiguration(MessageDispatcherAwareInterface::class)
+            ->addMethodCall('setMessageDispatcher', [new Reference(MessageDispatcher::class)]);
+
+        $container->registerForAutoconfiguration(MessageHandlerInterface::class)
+            ->addTag('messenger.message_handler', ['method' => 'handle']);
 
         $container->registerForAutoconfiguration(ValidatorAwareInterface::class)
             ->addMethodCall('setValidator', [new Reference(Validator::class)]);
@@ -64,6 +75,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
                     'failed' => $this->defineTransport('failed', $container->getParameter('kernel.environment')),
                 ],
                 'routing' => [
+                    MessageInterface::class => 'async',
                 ],
             ],
         ]);

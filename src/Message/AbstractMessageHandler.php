@@ -9,18 +9,15 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Event;
+namespace Webmunkeez\CQRSBundle\Message;
 
-use Webmunkeez\CQRSBundle\Message\MessageDispatcherAwareInterface;
-use Webmunkeez\CQRSBundle\Message\MessageDispatcherAwareTrait;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareTrait;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-abstract class AbstractEventHandler implements EventHandlerInterface, MessageDispatcherAwareInterface, ValidatorAwareInterface
+abstract class AbstractMessageHandler implements MessageHandlerInterface, ValidatorAwareInterface
 {
-    use MessageDispatcherAwareTrait;
     use ValidatorAwareTrait;
 }

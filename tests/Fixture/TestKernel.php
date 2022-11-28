@@ -37,6 +37,7 @@ final class TestKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config.yaml');
         $loader->load(__DIR__.'/config/doctrine.yaml');
+        $loader->load(__DIR__.'/config/messenger.yaml');
     }
 
     public function getProjectDir(): string

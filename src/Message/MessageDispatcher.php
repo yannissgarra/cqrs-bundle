@@ -9,16 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Messenger;
+namespace Webmunkeez\CQRSBundle\Message;
 
 use Symfony\Component\Messenger\MessageBusInterface;
-use Webmunkeez\CQRSBundle\Event\EventDispatcherInterface;
-use Webmunkeez\CQRSBundle\Event\EventInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class MessengerEventDispatcher implements EventDispatcherInterface
+final class MessageDispatcher implements MessageDispatcherInterface
 {
     private MessageBusInterface $bus;
 
@@ -27,8 +25,8 @@ final class MessengerEventDispatcher implements EventDispatcherInterface
         $this->bus = $bus;
     }
 
-    public function dispatch(EventInterface $event): void
+    public function dispatch(MessageInterface $message): void
     {
-        $this->bus->dispatch($event);
+        $this->bus->dispatch($message);
     }
 }
