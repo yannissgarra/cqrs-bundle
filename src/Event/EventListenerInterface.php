@@ -14,6 +14,6 @@ namespace Webmunkeez\CQRSBundle\Event;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-interface EventHandlerInterface
+interface EventListenerInterface
 {
 }

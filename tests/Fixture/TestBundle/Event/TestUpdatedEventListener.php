@@ -11,15 +11,15 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event;
 
-use Webmunkeez\CQRSBundle\Event\AbstractEventHandler;
+use Webmunkeez\CQRSBundle\Event\AbstractEventListener;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Message\TestUpdatedMessage;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestUpdatedEventHandler extends AbstractEventHandler
+final class TestUpdatedEventListener extends AbstractEventListener
 {
-    public function handle(TestUpdatedEvent $event): void
+    public function onTestUpdatedEvent(TestUpdatedEvent $event): void
     {
         $message = (new TestUpdatedMessage())
             ->setId($event->getTest()->getId())

@@ -14,7 +14,7 @@ namespace Webmunkeez\CQRSBundle;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Webmunkeez\CQRSBundle\DependencyInjection\Compiler\ConfigureEventHandlerPass;
+use Webmunkeez\CQRSBundle\DependencyInjection\Compiler\ConfigureEventListenerPass;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -31,6 +31,6 @@ final class WebmunkeezCQRSBundle extends Bundle
             $this->getPath().'/Model',
         ]));
 
-        $container->addCompilerPass(new ConfigureEventHandlerPass());
+        $container->addCompilerPass(new ConfigureEventListenerPass());
     }
 }

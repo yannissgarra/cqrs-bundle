@@ -11,19 +11,18 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event;
 
-use Webmunkeez\CQRSBundle\Event\AbstractEventHandler;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Message\TestCreatedMessage;
+use Webmunkeez\CQRSBundle\Event\AbstractEventListener;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Message\TestDeletedMessage;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestCreatedEventHandler extends AbstractEventHandler
+final class TestDeletedEventListener extends AbstractEventListener
 {
-    public function handle(TestCreatedEvent $event): void
+    public function onTestDeletedEvent(TestDeletedEvent $event): void
     {
-        $message = (new TestCreatedMessage())
-            ->setId($event->getTest()->getId())
-            ->setTitle($event->getTest()->getTitle());
+        $message = (new TestDeletedMessage())
+            ->setId($event->getTest()->getId());
 
         $this->validate($message);
 

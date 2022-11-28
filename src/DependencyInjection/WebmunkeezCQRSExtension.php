@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcher;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
-use Webmunkeez\CQRSBundle\Event\EventHandlerInterface;
+use Webmunkeez\CQRSBundle\Event\EventListenerInterface;
 use Webmunkeez\CQRSBundle\Message\MessageDispatcher;
 use Webmunkeez\CQRSBundle\Message\MessageDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Message\MessageHandlerInterface;
@@ -48,8 +48,8 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
         $container->registerForAutoconfiguration(EventDispatcherAwareInterface::class)
             ->addMethodCall('setEventDispatcher', [new Reference(EventDispatcher::class)]);
 
-        $container->registerForAutoconfiguration(EventHandlerInterface::class)
-            ->addTag('webmunkeez_cqrs.event_handler');
+        $container->registerForAutoconfiguration(EventListenerInterface::class)
+            ->addTag('webmunkeez_cqrs.event_listener');
 
         $container->registerForAutoconfiguration(MessageDispatcherAwareInterface::class)
             ->addMethodCall('setMessageDispatcher', [new Reference(MessageDispatcher::class)]);

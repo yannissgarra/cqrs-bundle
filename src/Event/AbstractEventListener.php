@@ -19,7 +19,7 @@ use Webmunkeez\CQRSBundle\Validator\ValidatorAwareTrait;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-abstract class AbstractEventHandler implements EventHandlerInterface, MessageDispatcherAwareInterface, ValidatorAwareInterface
+abstract class AbstractEventListener implements EventListenerInterface, MessageDispatcherAwareInterface, ValidatorAwareInterface
 {
     use MessageDispatcherAwareTrait;
     use ValidatorAwareTrait;
