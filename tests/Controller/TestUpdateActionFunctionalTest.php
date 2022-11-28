@@ -58,7 +58,7 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
         $this->assertSame('Test2', $event->getTitle());
     }
 
-    public function testInvokeWithNotExistingIdAndTitleShouldFail(): void
+    public function testInvokeWithNotExistingIdAndTitleShouldThrowException(): void
     {
         try {
             $this->action->__invoke(Uuid::v4(), 'Test2');
@@ -78,7 +78,7 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
         $this->fail();
     }
 
-    public function testInvokeWithExistingIdAndWithoutTitleShouldFail(): void
+    public function testInvokeWithExistingIdAndWithoutTitleShouldThrowException(): void
     {
         try {
             $this->action->__invoke(Uuid::fromString(self::DATA['id']));

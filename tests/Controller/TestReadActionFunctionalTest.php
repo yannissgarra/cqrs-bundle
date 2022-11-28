@@ -47,14 +47,14 @@ final class TestReadActionFunctionalTest extends AbstractActionFunctionalTest
         $this->assertSame(self::DATA['title'], $response->getTitle());
     }
 
-    public function testInvokeWithNotExistingIdShouldFail(): void
+    public function testInvokeWithNotExistingIdShouldThrowException(): void
     {
         $this->expectException(TestNotFoundException::class);
 
         $this->action->__invoke(Uuid::v4());
     }
 
-    public function testInvokeWithoutIdShouldFail(): void
+    public function testInvokeWithoutIdShouldThrowException(): void
     {
         try {
             $this->action->__invoke();

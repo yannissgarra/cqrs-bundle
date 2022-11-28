@@ -50,7 +50,7 @@ final class TestCreateActionFunctionalTest extends AbstractActionFunctionalTest
         $this->assertSame(self::DATA['title'], $event->getTitle());
     }
 
-    public function testInvokeWithoutTitleShouldFail(): void
+    public function testInvokeWithoutTitleShouldThrowException(): void
     {
         try {
             $this->action->__invoke(Uuid::fromString(self::DATA['id']));

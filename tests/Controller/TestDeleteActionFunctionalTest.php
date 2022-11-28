@@ -54,7 +54,7 @@ final class TestDeleteActionFunctionalTest extends AbstractActionFunctionalTest
         $this->assertTrue($event->getId()->equals(Uuid::fromString(self::DATA['id'])));
     }
 
-    public function testInvokeWithNotExistingIdShouldFail(): void
+    public function testInvokeWithNotExistingIdShouldThrowException(): void
     {
         try {
             $this->action->__invoke(Uuid::v4());
