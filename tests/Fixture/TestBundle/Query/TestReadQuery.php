@@ -13,12 +13,12 @@ namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Query;
 
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
-use Webmunkeez\CQRSBundle\Query\QueryInterface;
+use Webmunkeez\CQRSBundle\Query\AbstractQuery;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestReadQuery implements QueryInterface
+final class TestReadQuery extends AbstractQuery
 {
     #[Assert\NotBlank]
     private Uuid $id;

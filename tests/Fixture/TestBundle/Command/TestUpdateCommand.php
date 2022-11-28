@@ -13,12 +13,12 @@ namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Command;
 
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
-use Webmunkeez\CQRSBundle\Command\CommandInterface;
+use Webmunkeez\CQRSBundle\Command\AbstractCommand;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestUpdateCommand implements CommandInterface
+final class TestUpdateCommand extends AbstractCommand
 {
     #[Assert\NotBlank]
     private Uuid $id;
