@@ -26,6 +26,7 @@ use Webmunkeez\CQRSBundle\Message\MessageDispatcher;
 use Webmunkeez\CQRSBundle\Message\MessageDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Message\MessageHandlerInterface;
 use Webmunkeez\CQRSBundle\Message\MessageInterface;
+use Webmunkeez\CQRSBundle\Query\QueryHandlerInterface;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 
@@ -60,6 +61,9 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
 
         $container->registerForAutoconfiguration(MessageHandlerInterface::class)
             ->addTag('messenger.message_handler', ['method' => 'handle']);
+
+        $container->registerForAutoconfiguration(QueryHandlerInterface::class)
+            ->addTag('webmunkeez_cqrs.query_handler');
 
         $container->registerForAutoconfiguration(ValidatorAwareInterface::class)
             ->addMethodCall('setValidator', [new Reference(Validator::class)]);

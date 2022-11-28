@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Webmunkeez\CQRSBundle\DependencyInjection\Compiler\ConfigureCommandHandlerPass;
 use Webmunkeez\CQRSBundle\DependencyInjection\Compiler\ConfigureEventListenerPass;
+use Webmunkeez\CQRSBundle\DependencyInjection\Compiler\ConfigureQueryHandlerPass;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -34,5 +35,6 @@ final class WebmunkeezCQRSBundle extends Bundle
 
         $container->addCompilerPass(new ConfigureCommandHandlerPass());
         $container->addCompilerPass(new ConfigureEventListenerPass());
+        $container->addCompilerPass(new ConfigureQueryHandlerPass());
     }
 }
