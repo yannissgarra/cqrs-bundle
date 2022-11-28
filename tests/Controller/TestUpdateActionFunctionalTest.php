@@ -14,7 +14,6 @@ namespace Webmunkeez\CQRSBundle\Test\Controller;
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller\TestUpdateAction;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestUpdatedEvent;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
@@ -48,17 +47,9 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
         $this->assertInstanceOf(Test::class, $entity);
         $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
         $this->assertSame('Test2', $entity->getTitle());
-
-        // test event has been sent
-        $this->assertCount(1, $this->asyncTransport->get());
-        /** @var TestUpdatedEvent $event */
-        $event = $this->asyncTransport->get()[0]->getMessage();
-        $this->assertInstanceOf(TestUpdatedEvent::class, $event);
-        $this->assertTrue($event->getId()->equals(Uuid::fromString(self::DATA['id'])));
-        $this->assertSame('Test2', $event->getTitle());
     }
 
-    public function testInvokeWithNotExistingIdAndTitleShouldThrowException(): void
+    public function testInvokeWithNotExistingIdAndTitleShouldFail(): void
     {
         try {
             $this->action->__invoke(Uuid::v4(), 'Test2');
@@ -69,16 +60,13 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
             $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
             $this->assertSame(self::DATA['title'], $entity->getTitle());
 
-            // test event has not been sent
-            $this->assertCount(0, $this->asyncTransport->get());
-
             return;
         }
 
         $this->fail();
     }
 
-    public function testInvokeWithExistingIdAndWithoutTitleShouldThrowException(): void
+    public function testInvokeWithExistingIdAndWithoutTitleShouldFail(): void
     {
         try {
             $this->action->__invoke(Uuid::fromString(self::DATA['id']));
@@ -91,9 +79,6 @@ final class TestUpdateActionFunctionalTest extends AbstractActionFunctionalTest
             $this->assertInstanceOf(Test::class, $entity);
             $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
             $this->assertSame(self::DATA['title'], $entity->getTitle());
-
-            // test event has not been sent
-            $this->assertCount(0, $this->asyncTransport->get());
 
             return;
         }

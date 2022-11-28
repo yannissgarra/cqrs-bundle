@@ -47,11 +47,6 @@ final class TestDeleteCommandHandler extends AbstractCommandHandler
 
         $this->flush();
 
-        $event = (new TestDeletedEvent())
-            ->setId($entity->getId());
-
-        $this->validate($event);
-
-        $this->dispatch($event);
+        $this->dispatch(new TestDeletedEvent($entity));
     }
 }

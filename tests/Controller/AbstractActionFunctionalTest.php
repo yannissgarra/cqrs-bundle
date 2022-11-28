@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Repository\TestWriteRepository;
 
 /**
@@ -28,6 +29,7 @@ abstract class AbstractActionFunctionalTest extends KernelTestCase
     ];
 
     protected EntityManagerInterface $entityManager;
+    protected EventDispatcherInterface $eventDispatcher;
     protected TransportInterface $asyncTransport;
     protected TestWriteRepository $testRepository;
 
@@ -38,6 +40,8 @@ abstract class AbstractActionFunctionalTest extends KernelTestCase
         $metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->updateSchema($metaData);
+
+        $this->eventDispatcher = static::getContainer()->get('event_dispatcher');
 
         $this->asyncTransport = static::getContainer()->get('messenger.transport.async');
 

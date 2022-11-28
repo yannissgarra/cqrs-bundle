@@ -11,38 +11,23 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event;
 
-use Symfony\Component\Uid\Uuid;
-use Webmunkeez\CQRSBundle\Event\EventInterface;
+use Webmunkeez\CQRSBundle\Event\AbstractEvent;
+use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestCreatedEvent implements EventInterface
+final class TestCreatedEvent extends AbstractEvent
 {
-    private Uuid $id;
-    private string $title;
+    private Test $test;
 
-    public function getId(): Uuid
+    public function __construct(Test $test)
     {
-        return $this->id;
+        $this->test = $test;
     }
 
-    public function setId(Uuid $id): self
+    public function getTest(): Test
     {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
+        return $this->test;
     }
 }

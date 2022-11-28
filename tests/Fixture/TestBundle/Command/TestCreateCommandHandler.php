@@ -37,12 +37,6 @@ final class TestCreateCommandHandler extends AbstractCommandHandler
         $this->persist($entity);
         $this->flush();
 
-        $event = (new TestCreatedEvent())
-            ->setId($entity->getId())
-            ->setTitle($entity->getTitle());
-
-        $this->validate($event);
-
-        $this->dispatch($event);
+        $this->dispatch(new TestCreatedEvent($entity));
     }
 }

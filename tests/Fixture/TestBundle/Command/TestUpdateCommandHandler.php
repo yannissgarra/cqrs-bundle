@@ -49,12 +49,6 @@ final class TestUpdateCommandHandler extends AbstractCommandHandler
 
         $this->flush();
 
-        $event = (new TestUpdatedEvent())
-            ->setId($entity->getId())
-            ->setTitle($entity->getTitle());
-
-        $this->validate($event);
-
-        $this->dispatch($event);
+        $this->dispatch(new TestUpdatedEvent($entity));
     }
 }

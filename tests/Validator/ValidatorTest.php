@@ -53,7 +53,7 @@ final class ValidatorTest extends TestCase
         $this->validator->validate($test);
     }
 
-    public function testValidateWithoutTitleShouldThrowException(): void
+    public function testValidateWithoutTitleShouldFail(): void
     {
         $this->coreValidator->method('validate')->willReturn(new ConstraintViolationList([
             new ConstraintViolation('Title should not be blank.', null, [], null, 'titleField', ''),

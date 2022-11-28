@@ -16,5 +16,8 @@ namespace Webmunkeez\CQRSBundle\Event;
  */
 interface EventDispatcherInterface
 {
-    public function dispatch(EventInterface $event): void;
+    /**
+     * @return EventInterface the passed $event must be returned
+     */
+    public function dispatch(EventInterface $event): EventInterface;
 }

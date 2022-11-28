@@ -61,7 +61,7 @@ final class ValidationExceptionListenerTest extends TestCase
         $this->assertSame($exception, $event->getThrowable()->getPrevious());
     }
 
-    public function testWithOtherExceptionShouldThrowException(): void
+    public function testWithOtherExceptionShouldFail(): void
     {
         $exception = new \Exception();
 

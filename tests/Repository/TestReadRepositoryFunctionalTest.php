@@ -57,7 +57,7 @@ final class TestReadRepositoryFunctionalTest extends KernelTestCase
         $this->assertSame(self::DATA['title'], $test->getTitle());
     }
 
-    public function testFindOneWithNotExistingIdShouldThrowException(): void
+    public function testFindOneWithNotExistingIdShouldFail(): void
     {
         $this->expectException(TestNotFoundException::class);
 

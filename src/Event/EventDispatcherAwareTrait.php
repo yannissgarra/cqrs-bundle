@@ -23,8 +23,8 @@ trait EventDispatcherAwareTrait
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    protected function dispatch(EventInterface $event): void
+    protected function dispatch(EventInterface $event): EventInterface
     {
-        $this->eventDispatcher->dispatch($event);
+        return $this->eventDispatcher->dispatch($event);
     }
 }

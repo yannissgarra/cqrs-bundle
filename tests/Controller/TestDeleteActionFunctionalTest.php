@@ -13,7 +13,6 @@ namespace Webmunkeez\CQRSBundle\Test\Controller;
 
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller\TestDeleteAction;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestDeletedEvent;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Exception\TestNotFoundException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
@@ -45,16 +44,9 @@ final class TestDeleteActionFunctionalTest extends AbstractActionFunctionalTest
         // test entity has been deleted
         $entity = $this->testRepository->findOneBy(['id' => Uuid::fromString(self::DATA['id'])]);
         $this->assertNull($entity);
-
-        // test event has been sent
-        $this->assertCount(1, $this->asyncTransport->get());
-        /** @var TestDeletedEvent $event */
-        $event = $this->asyncTransport->get()[0]->getMessage();
-        $this->assertInstanceOf(TestDeletedEvent::class, $event);
-        $this->assertTrue($event->getId()->equals(Uuid::fromString(self::DATA['id'])));
     }
 
-    public function testInvokeWithNotExistingIdShouldThrowException(): void
+    public function testInvokeWithNotExistingIdShouldFail(): void
     {
         try {
             $this->action->__invoke(Uuid::v4());
@@ -64,9 +56,6 @@ final class TestDeleteActionFunctionalTest extends AbstractActionFunctionalTest
             $this->assertInstanceOf(Test::class, $entity);
             $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
             $this->assertSame(self::DATA['title'], $entity->getTitle());
-
-            // test event has not been sent
-            $this->assertCount(0, $this->asyncTransport->get());
 
             return;
         }

@@ -44,7 +44,7 @@ final class ValidatorFunctionalTest extends KernelTestCase
         $this->validator->validate($test);
     }
 
-    public function testValidateWithoutTitleShouldThrowException(): void
+    public function testValidateWithoutTitleShouldFail(): void
     {
         $test = new Test();
 

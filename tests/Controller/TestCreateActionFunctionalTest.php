@@ -14,7 +14,6 @@ namespace Webmunkeez\CQRSBundle\Test\Controller;
 use Symfony\Component\Uid\Uuid;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Controller\TestCreateAction;
-use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestCreatedEvent;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
 
 /**
@@ -40,17 +39,9 @@ final class TestCreateActionFunctionalTest extends AbstractActionFunctionalTest
         $this->assertInstanceOf(Test::class, $entity);
         $this->assertTrue($entity->getId()->equals(Uuid::fromString(self::DATA['id'])));
         $this->assertSame(self::DATA['title'], $entity->getTitle());
-
-        // test event has been sent
-        $this->assertCount(1, $this->asyncTransport->get());
-        /** @var TestCreatedEvent $event */
-        $event = $this->asyncTransport->get()[0]->getMessage();
-        $this->assertInstanceOf(TestCreatedEvent::class, $event);
-        $this->assertTrue($event->getId()->equals(Uuid::fromString(self::DATA['id'])));
-        $this->assertSame(self::DATA['title'], $event->getTitle());
     }
 
-    public function testInvokeWithoutTitleShouldThrowException(): void
+    public function testInvokeWithoutTitleShouldFail(): void
     {
         try {
             $this->action->__invoke(Uuid::fromString(self::DATA['id']));
@@ -61,9 +52,6 @@ final class TestCreateActionFunctionalTest extends AbstractActionFunctionalTest
             // test entity has not been created
             $entity = $this->testRepository->findOneBy(['id' => Uuid::fromString(self::DATA['id'])]);
             $this->assertNull($entity);
-
-            // test event has not been sent
-            $this->assertCount(0, $this->asyncTransport->get());
 
             return;
         }

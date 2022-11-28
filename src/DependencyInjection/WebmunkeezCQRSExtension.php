@@ -18,9 +18,9 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
+use Webmunkeez\CQRSBundle\Event\EventDispatcher;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
-use Webmunkeez\CQRSBundle\Event\EventInterface;
-use Webmunkeez\CQRSBundle\Messenger\MessengerEventDispatcher;
+use Webmunkeez\CQRSBundle\Event\EventHandlerInterface;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 
@@ -32,7 +32,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('dispatcher.php');
+        $loader->load('event.php');
         $loader->load('event_listener.php');
         $loader->load('serializer.php');
         $loader->load('validator.php');
@@ -41,7 +41,10 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
             ->addMethodCall('setEntityManager', [new Reference('doctrine.orm.entity_manager')]);
 
         $container->registerForAutoconfiguration(EventDispatcherAwareInterface::class)
-            ->addMethodCall('setEventDispatcher', [new Reference(MessengerEventDispatcher::class)]);
+            ->addMethodCall('setEventDispatcher', [new Reference(EventDispatcher::class)]);
+
+        $container->registerForAutoconfiguration(EventHandlerInterface::class)
+            ->addTag('webmunkeez_cqrs.event_handler');
 
         $container->registerForAutoconfiguration(ValidatorAwareInterface::class)
             ->addMethodCall('setValidator', [new Reference(Validator::class)]);
@@ -61,7 +64,6 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
                     'failed' => $this->defineTransport('failed', $container->getParameter('kernel.environment')),
                 ],
                 'routing' => [
-                    EventInterface::class => 'async',
                 ],
             ],
         ]);

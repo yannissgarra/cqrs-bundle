@@ -9,13 +9,13 @@
 
 declare(strict_types=1);
 
-namespace Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event;
+namespace Webmunkeez\CQRSBundle\Event;
 
-use Webmunkeez\CQRSBundle\Event\EventInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class TestEvent implements EventInterface
+abstract class AbstractEvent extends Event implements EventInterface
 {
 }
