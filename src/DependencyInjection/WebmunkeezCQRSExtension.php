@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
+use Webmunkeez\CQRSBundle\Command\CommandHandlerInterface;
 use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
 use Webmunkeez\CQRSBundle\Event\EventDispatcher;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
@@ -41,6 +42,9 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
         $loader->load('message.php');
         $loader->load('serializer.php');
         $loader->load('validator.php');
+
+        $container->registerForAutoconfiguration(CommandHandlerInterface::class)
+            ->addTag('webmunkeez_cqrs.command_handler');
 
         $container->registerForAutoconfiguration(EntityManagerAwareInterface::class)
             ->addMethodCall('setEntityManager', [new Reference('doctrine.orm.entity_manager')]);
