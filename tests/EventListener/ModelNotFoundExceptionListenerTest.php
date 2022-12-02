@@ -19,18 +19,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Webmunkeez\CQRSBundle\EventListener\EntityNotFoundExceptionListener;
-use Webmunkeez\CQRSBundle\Exception\EntityNotFoundException;
+use Webmunkeez\CQRSBundle\EventListener\ModelNotFoundExceptionListener;
+use Webmunkeez\CQRSBundle\Exception\ModelNotFoundException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class EntityNotFoundExceptionListenerTest extends TestCase
+final class ModelNotFoundExceptionListenerTest extends TestCase
 {
     /** @var KernelInterface&MockObject */
     private KernelInterface $kernel;
 
-    private EntityNotFoundExceptionListener $listener;
+    private ModelNotFoundExceptionListener $listener;
 
     protected function setUp(): void
     {
@@ -38,12 +38,12 @@ final class EntityNotFoundExceptionListenerTest extends TestCase
         $kernel = $this->getMockForAbstractClass(Kernel::class, ['test', true]);
         $this->kernel = $kernel;
 
-        $this->listener = new EntityNotFoundExceptionListener();
+        $this->listener = new ModelNotFoundExceptionListener();
     }
 
-    public function testWithEntityNotFoundExceptionShouldSucceed(): void
+    public function testWithModelNotFoundExceptionShouldSucceed(): void
     {
-        $exception = new EntityNotFoundException();
+        $exception = new ModelNotFoundException();
 
         $request = new Request();
 
@@ -54,7 +54,7 @@ final class EntityNotFoundExceptionListenerTest extends TestCase
         $this->assertInstanceOf(NotFoundHttpException::class, $event->getThrowable());
         $this->assertSame($exception->getMessage(), $event->getThrowable()->getMessage());
         $this->assertSame($exception->getCode(), $event->getThrowable()->getCode());
-        $this->assertInstanceOf(EntityNotFoundException::class, $event->getThrowable()->getPrevious());
+        $this->assertInstanceOf(ModelNotFoundException::class, $event->getThrowable()->getPrevious());
         $this->assertSame($exception, $event->getThrowable()->getPrevious());
     }
 

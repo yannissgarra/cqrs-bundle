@@ -14,6 +14,6 @@ namespace Webmunkeez\CQRSBundle\Exception;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-class EntityNotFoundException extends RuntimeException
+class ModelNotFoundException extends RuntimeException
 {
 }

@@ -13,16 +13,16 @@ namespace Webmunkeez\CQRSBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Webmunkeez\CQRSBundle\Exception\EntityNotFoundException;
+use Webmunkeez\CQRSBundle\Exception\ModelNotFoundException;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class EntityNotFoundExceptionListener
+final class ModelNotFoundExceptionListener
 {
     public function onKernelException(ExceptionEvent $event): void
     {
-        if ($event->getThrowable() instanceof EntityNotFoundException) {
+        if ($event->getThrowable() instanceof ModelNotFoundException) {
             $event->setThrowable(new NotFoundHttpException($event->getThrowable()->getMessage(), $event->getThrowable(), $event->getThrowable()->getCode()));
         }
     }
