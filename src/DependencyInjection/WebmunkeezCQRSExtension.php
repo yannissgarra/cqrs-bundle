@@ -43,6 +43,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
         $loader->load('message.php');
         $loader->load('serializer.php');
         $loader->load('validator.php');
+        $loader->load('value_resolver.php');
 
         $container->registerForAutoconfiguration(CommandHandlerInterface::class)
             ->addTag('webmunkeez_cqrs.command_handler');
