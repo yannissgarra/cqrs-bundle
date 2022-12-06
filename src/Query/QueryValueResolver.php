@@ -37,9 +37,7 @@ final class QueryValueResolver implements ValueResolverInterface
             return [];
         }
 
-        $reflectionClass = new \ReflectionClass($argumentType);
-
-        if (false === $reflectionClass->isSubclassOf(QueryInterface::class)) {
+        if (false === is_subclass_of($argumentType, QueryInterface::class)) {
             return [];
         }
 

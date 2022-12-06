@@ -37,9 +37,7 @@ final class CommandValueResolver implements ValueResolverInterface
             return [];
         }
 
-        $reflectionClass = new \ReflectionClass($argumentType);
-
-        if (false === $reflectionClass->isSubclassOf(CommandInterface::class)) {
+        if (false === is_subclass_of($argumentType, CommandInterface::class)) {
             return [];
         }
 
