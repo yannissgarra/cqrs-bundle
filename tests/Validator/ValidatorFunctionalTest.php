@@ -15,7 +15,6 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Webmunkeez\CQRSBundle\Exception\ValidationException;
 use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Model\Test;
-use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorInterface;
 
 /**
@@ -32,7 +31,7 @@ final class ValidatorFunctionalTest extends KernelTestCase
         $schemaTool = new SchemaTool($entityManager);
         $schemaTool->updateSchema($metaData);
 
-        $this->validator = static::getContainer()->get(Validator::class);
+        $this->validator = static::getContainer()->get(ValidatorInterface::class);
     }
 
     public function testValidateWithTitleShouldSucceed(): void
