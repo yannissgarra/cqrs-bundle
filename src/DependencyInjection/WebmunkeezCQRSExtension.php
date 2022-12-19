@@ -27,6 +27,8 @@ use Webmunkeez\CQRSBundle\Message\MessageDispatcherAwareInterface;
 use Webmunkeez\CQRSBundle\Message\MessageHandlerInterface;
 use Webmunkeez\CQRSBundle\Message\MessageInterface;
 use Webmunkeez\CQRSBundle\Query\QueryHandlerInterface;
+use Webmunkeez\CQRSBundle\Serializer\Normalizer\Normalizer;
+use Webmunkeez\CQRSBundle\Serializer\Normalizer\NormalizerAwareInterface;
 use Webmunkeez\CQRSBundle\Validator\Validator;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
 
@@ -65,6 +67,9 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
 
         $container->registerForAutoconfiguration(QueryHandlerInterface::class)
             ->addTag('webmunkeez_cqrs.query_handler');
+
+        $container->registerForAutoconfiguration(NormalizerAwareInterface::class)
+            ->addMethodCall('setNormalizer', [new Reference(Normalizer::class)]);
 
         $container->registerForAutoconfiguration(ValidatorAwareInterface::class)
             ->addMethodCall('setValidator', [new Reference(Validator::class)]);
