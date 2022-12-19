@@ -29,6 +29,11 @@ final class Normalizer implements NormalizerInterface
         $this->serializer = $serializer;
     }
 
+    public function normalize(mixed $object): array
+    {
+        return $this->serializer->normalize($object);
+    }
+
     public function denormalize(mixed $data, string $type): mixed
     {
         return $this->serializer->denormalize($data, $type);

@@ -28,6 +28,14 @@ trait NormalizerAwareTrait
     /**
      * @throws NormalizationException
      */
+    public function normalize(mixed $object): array
+    {
+        return $this->normalizer->normalize($object);
+    }
+
+    /**
+     * @throws NormalizationException
+     */
     public function denormalize(mixed $data, string $type): mixed
     {
         $this->normalizer->denormalize($data, $type);

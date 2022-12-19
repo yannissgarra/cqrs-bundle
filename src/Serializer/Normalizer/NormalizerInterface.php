@@ -21,5 +21,10 @@ interface NormalizerInterface
     /**
      * @throws NormalizationException
      */
+    public function normalize(mixed $object): array;
+
+    /**
+     * @throws NormalizationException
+     */
     public function denormalize(mixed $data, string $type): mixed;
 }

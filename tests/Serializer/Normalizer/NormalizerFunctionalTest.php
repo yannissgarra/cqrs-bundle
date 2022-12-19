@@ -28,12 +28,12 @@ final class NormalizerFunctionalTest extends KernelTestCase
         $this->normalizer = static::getContainer()->get(NormalizerInterface::class);
     }
 
-    public function testNormalizeShouldSucceed(): void
+    public function testDenormalizeShouldSucceed(): void
     {
         $data = [
             'id' => Uuid::v4()->toRfc4122(),
             'title' => 'This is a title',
-            'created_at' => (new \DateTime())->format(\DateTime::ATOM),
+            'created_at' => (new \DateTime())->setTime(13, 37)->format(\DateTime::ATOM),
         ];
 
         /** @var TestDetail $test */
@@ -43,5 +43,20 @@ final class NormalizerFunctionalTest extends KernelTestCase
         $this->assertTrue($test->getId()->equals(Uuid::fromString($data['id'])));
         $this->assertSame($data['title'], $test->getTitle());
         $this->assertEquals(\DateTime::createFromFormat(\DateTime::ATOM, $data['created_at']), $test->getCreatedAt());
+    }
+
+    public function testNormalizeShouldSucceed(): void
+    {
+        $test = (new TestDetail())
+            ->setId(Uuid::v4())
+            ->setTitle('This is a title')
+            ->setCreatedAt((new \DateTime())->setTime(13, 37));
+
+        /** @var TestDetail $test */
+        $data = $this->normalizer->normalize($test);
+
+        $this->assertTrue(Uuid::fromString($data['id'])->equals($test->getId()));
+        $this->assertSame($test->getTitle(), $data['title']);
+        $this->assertEquals($test->getCreatedAt(), \DateTime::createFromFormat(\DateTime::ATOM, $data['created_at']));
     }
 }
