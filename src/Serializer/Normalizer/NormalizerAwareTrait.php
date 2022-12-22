@@ -38,6 +38,6 @@ trait NormalizerAwareTrait
      */
     public function denormalize(mixed $data, string $type): mixed
     {
-        $this->normalizer->denormalize($data, $type);
+        return $this->normalizer->denormalize($data, $type);
     }
 }
