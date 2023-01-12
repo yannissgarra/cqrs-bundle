@@ -23,6 +23,7 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Query\TestReadQueryHandler;
 final class ConfigureQueryHandlerPassTest extends TestCase
 {
     private ConfigureQueryHandlerPass $pass;
+
     private ContainerBuilder $container;
 
     protected function setUp(): void

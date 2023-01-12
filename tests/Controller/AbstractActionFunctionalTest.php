@@ -29,8 +29,11 @@ abstract class AbstractActionFunctionalTest extends KernelTestCase
     ];
 
     protected EntityManagerInterface $entityManager;
+
     protected EventDispatcherInterface $eventDispatcher;
+
     protected TransportInterface $asyncTransport;
+
     protected TestWriteRepository $testRepository;
 
     protected function setUp(): void

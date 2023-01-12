@@ -19,7 +19,9 @@ use Symfony\Component\Uid\Uuid;
 final class TestDetail
 {
     private Uuid $id;
+
     private string $title;
+
     private \DateTime $createdAt;
 
     public function getId(): Uuid

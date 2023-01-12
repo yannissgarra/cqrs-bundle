@@ -20,6 +20,7 @@ use Webmunkeez\CQRSBundle\Message\AbstractMessage;
 final class TestCreatedMessage extends AbstractMessage
 {
     private Uuid $id;
+
     private string $title;
 
     public function getId(): Uuid

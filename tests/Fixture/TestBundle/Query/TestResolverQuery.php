@@ -20,7 +20,9 @@ use Webmunkeez\CQRSBundle\Query\AbstractQuery;
 final class TestResolverQuery extends AbstractQuery
 {
     private Uuid $id;
+
     private string $title;
+
     private int $page;
 
     public function getId(): Uuid

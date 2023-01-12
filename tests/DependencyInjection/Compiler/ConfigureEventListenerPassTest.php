@@ -24,6 +24,7 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Event\TestCreatedEventListener
 final class ConfigureEventListenerPassTest extends TestCase
 {
     private ConfigureEventListenerPass $pass;
+
     private ContainerBuilder $container;
 
     protected function setUp(): void

@@ -23,6 +23,7 @@ use Webmunkeez\CQRSBundle\Test\Fixture\TestBundle\Command\TestCreateCommandHandl
 final class ConfigureCommandHandlerPassTest extends TestCase
 {
     private ConfigureCommandHandlerPass $pass;
+
     private ContainerBuilder $container;
 
     protected function setUp(): void

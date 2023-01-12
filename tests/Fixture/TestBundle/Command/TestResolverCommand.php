@@ -20,7 +20,9 @@ use Webmunkeez\CQRSBundle\Command\AbstractCommand;
 final class TestResolverCommand extends AbstractCommand
 {
     private Uuid $id;
+
     private string $title;
+
     private int $page;
 
     public function getId(): Uuid

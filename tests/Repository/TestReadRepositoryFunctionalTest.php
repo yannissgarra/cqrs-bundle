@@ -30,6 +30,7 @@ final class TestReadRepositoryFunctionalTest extends KernelTestCase
     ];
 
     private ?EntityManager $entityManager;
+
     private TestReadRepository $repository;
 
     protected function setUp(): void

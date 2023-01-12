@@ -29,6 +29,7 @@ final class TestWriteRepositoryFunctionalTest extends KernelTestCase
     ];
 
     private ?EntityManager $entityManager;
+
     private TestWriteRepository $repository;
 
     protected function setUp(): void

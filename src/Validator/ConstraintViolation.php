@@ -17,6 +17,7 @@ namespace Webmunkeez\CQRSBundle\Validator;
 final class ConstraintViolation
 {
     private string $propertyPath;
+
     private string $message;
 
     public function __construct(string $propertyPath, string $message)
