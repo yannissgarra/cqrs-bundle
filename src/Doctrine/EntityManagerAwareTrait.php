@@ -40,4 +40,9 @@ trait EntityManagerAwareTrait
     {
         $this->entityManager->flush();
     }
+
+    protected function clear(): void
+    {
+        $this->entityManager->clear();
+    }
 }
