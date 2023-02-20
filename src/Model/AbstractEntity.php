@@ -48,9 +48,23 @@ abstract class AbstractEntity implements EntityInterface
         return $this;
     }
 
+    public function generateId(): static
+    {
+        $this->setId(Uuid::v4());
+
+        return $this;
+    }
+
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $date): static
+    {
+        $this->createdAt = $date;
+
+        return $this;
     }
 
     public function getLastUpdatedAt(): \DateTime
@@ -58,30 +72,16 @@ abstract class AbstractEntity implements EntityInterface
         return $this->lastUpdatedAt;
     }
 
+    public function setLastUpdatedAt(\DateTime $date): static
+    {
+        $this->lastUpdatedAt = $date;
+
+        return $this;
+    }
+
     public function updateLastUpdatedAt(): static
     {
         $this->setLastUpdatedAt(new \DateTime());
-
-        return $this;
-    }
-
-    private function generateId(): static
-    {
-        $this->setId(Uuid::v4());
-
-        return $this;
-    }
-
-    private function setCreatedAt(\DateTime $date): static
-    {
-        $this->createdAt = $date;
-
-        return $this;
-    }
-
-    private function setLastUpdatedAt(\DateTime $date): static
-    {
-        $this->lastUpdatedAt = $date;
 
         return $this;
     }
