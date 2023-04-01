@@ -11,12 +11,16 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Webmunkeez\CQRSBundle\Serializer\Normalizer\BackedEnumNormalizer;
 use Webmunkeez\CQRSBundle\Serializer\Normalizer\Normalizer;
 use Webmunkeez\CQRSBundle\Serializer\Normalizer\NormalizerInterface;
 use Webmunkeez\CQRSBundle\Serializer\Normalizer\ValidationHttpExceptionNormalizer;
 
 return static function (ContainerConfigurator $container) {
     $container->services()
+        ->set(BackedEnumNormalizer::class)
+            ->tag('serializer.normalizer', ['priority' => 10])
+
         ->set(ValidationHttpExceptionNormalizer::class)
             ->tag('serializer.normalizer', ['priority' => 10])
 

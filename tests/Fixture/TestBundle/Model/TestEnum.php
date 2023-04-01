@@ -16,10 +16,10 @@ use Webmunkeez\CQRSBundle\Model\BackedEnumTrait;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-enum TestEnum: string
+enum TestEnum: int
 {
     use BackedEnumTrait;
 
-    case VALUE1 = 'VALUE1';
-    case VALUE2 = 'VALUE2';
+    case VALUE1 = 1;
+    case VALUE2 = 2;
 }

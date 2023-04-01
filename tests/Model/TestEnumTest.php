@@ -21,6 +21,6 @@ final class TestEnumTest extends TestCase
 {
     public function testGetChoicesShouldSucceed(): void
     {
-        $this->assertEqualsCanonicalizing(['VALUE1', 'VALUE2'], TestEnum::getChoices());
+        $this->assertEqualsCanonicalizing([1, 2], TestEnum::getChoices());
     }
 }
