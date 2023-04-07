@@ -19,18 +19,18 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Webmunkeez\CQRSBundle\Command\CommandHandlerInterface;
 use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
-use Webmunkeez\CQRSBundle\Event\EventDispatcher;
 use Webmunkeez\CQRSBundle\Event\EventDispatcherAwareInterface;
+use Webmunkeez\CQRSBundle\Event\EventDispatcherInterface;
 use Webmunkeez\CQRSBundle\Event\EventListenerInterface;
-use Webmunkeez\CQRSBundle\Message\MessageDispatcher;
 use Webmunkeez\CQRSBundle\Message\MessageDispatcherAwareInterface;
+use Webmunkeez\CQRSBundle\Message\MessageDispatcherInterface;
 use Webmunkeez\CQRSBundle\Message\MessageHandlerInterface;
 use Webmunkeez\CQRSBundle\Message\MessageInterface;
 use Webmunkeez\CQRSBundle\Query\QueryHandlerInterface;
-use Webmunkeez\CQRSBundle\Serializer\Normalizer\Normalizer;
 use Webmunkeez\CQRSBundle\Serializer\Normalizer\NormalizerAwareInterface;
-use Webmunkeez\CQRSBundle\Validator\Validator;
+use Webmunkeez\CQRSBundle\Serializer\Normalizer\NormalizerInterface;
 use Webmunkeez\CQRSBundle\Validator\ValidatorAwareInterface;
+use Webmunkeez\CQRSBundle\Validator\ValidatorInterface;
 
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
@@ -54,13 +54,13 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
             ->addMethodCall('setEntityManager', [new Reference('doctrine.orm.entity_manager')]);
 
         $container->registerForAutoconfiguration(EventDispatcherAwareInterface::class)
-            ->addMethodCall('setEventDispatcher', [new Reference(EventDispatcher::class)]);
+            ->addMethodCall('setEventDispatcher', [new Reference(EventDispatcherInterface::class)]);
 
         $container->registerForAutoconfiguration(EventListenerInterface::class)
             ->addTag('webmunkeez_cqrs.event_listener');
 
         $container->registerForAutoconfiguration(MessageDispatcherAwareInterface::class)
-            ->addMethodCall('setMessageDispatcher', [new Reference(MessageDispatcher::class)]);
+            ->addMethodCall('setMessageDispatcher', [new Reference(MessageDispatcherInterface::class)]);
 
         $container->registerForAutoconfiguration(MessageHandlerInterface::class)
             ->addTag('messenger.message_handler', ['method' => 'handle']);
@@ -69,10 +69,10 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
             ->addTag('webmunkeez_cqrs.query_handler');
 
         $container->registerForAutoconfiguration(NormalizerAwareInterface::class)
-            ->addMethodCall('setNormalizer', [new Reference(Normalizer::class)]);
+            ->addMethodCall('setNormalizer', [new Reference(NormalizerInterface::class)]);
 
         $container->registerForAutoconfiguration(ValidatorAwareInterface::class)
-            ->addMethodCall('setValidator', [new Reference(Validator::class)]);
+            ->addMethodCall('setValidator', [new Reference(ValidatorInterface::class)]);
     }
 
     public function prepend(ContainerBuilder $container)
