@@ -45,4 +45,9 @@ trait EntityManagerAwareTrait
     {
         $this->entityManager->clear();
     }
+
+    protected function detach(EntityInterface $entity): void
+    {
+        $this->entityManager->detach($entity);
+    }
 }
