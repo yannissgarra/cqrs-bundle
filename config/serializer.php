@@ -19,6 +19,7 @@ use Webmunkeez\CQRSBundle\Serializer\Normalizer\ValidationHttpExceptionNormalize
 return static function (ContainerConfigurator $container) {
     $container->services()
         ->set(BackedEnumNormalizer::class)
+            ->args([service('translator')])
             ->tag('serializer.normalizer', ['priority' => 10])
 
         ->set(ValidationHttpExceptionNormalizer::class)

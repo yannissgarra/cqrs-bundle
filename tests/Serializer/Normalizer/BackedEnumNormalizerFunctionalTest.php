@@ -32,6 +32,6 @@ final class BackedEnumNormalizerFunctionalTest extends KernelTestCase
     {
         $json = $this->serializer->serialize(TestEnum::VALUE1, JsonEncoder::FORMAT);
 
-        $this->assertSame('"VALUE1"', $json);
+        $this->assertSame('{"name":"VALUE1","title":"test.value1"}', $json);
     }
 }
