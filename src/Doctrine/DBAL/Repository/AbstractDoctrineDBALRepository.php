@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Doctrine\DBAL\Repository;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Webmunkeez\CQRSBundle\Doctrine\EntityManagerAwareInterface;
@@ -29,6 +30,11 @@ abstract class AbstractDoctrineDBALRepository implements EntityManagerAwareInter
     public function setEntityManager(EntityManagerInterface $entityManager): void
     {
         $this->entityManager = $entityManager;
+    }
+
+    public function getConnection(): Connection
+    {
+        return $this->entityManager->getConnection();
     }
 
     protected function createQueryBuilder(): QueryBuilder
