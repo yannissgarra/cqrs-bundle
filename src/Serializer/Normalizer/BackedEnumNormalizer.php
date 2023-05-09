@@ -39,6 +39,7 @@ final class BackedEnumNormalizer implements NormalizerInterface, CacheableSuppor
         return [
             'name' => $object->name,
             'title' => $this->translator->trans($object::getBaseTranslationMessage().'.'.(new UnicodeString($object->name))->lower()->toString()),
+            'value' => $object->value,
         ];
     }
 
