@@ -44,6 +44,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
         $loader->load('event_listener.php');
         $loader->load('message.php');
         $loader->load('serializer.php');
+        $loader->load('twig.php');
         $loader->load('validator.php');
         $loader->load('value_resolver.php');
 
