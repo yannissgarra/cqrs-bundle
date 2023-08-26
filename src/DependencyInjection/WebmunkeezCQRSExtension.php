@@ -39,7 +39,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'), $container->getParameter('kernel.environment'));
         $loader->load('event.php');
         $loader->load('event_listener.php');
         $loader->load('message.php');
@@ -75,7 +75,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
             ->addMethodCall('setValidator', [new Reference(ValidatorInterface::class)]);
     }
 
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         // define default config for messenger
         $container->prependExtensionConfig('framework', [
@@ -97,7 +97,7 @@ final class WebmunkeezCQRSExtension extends Extension implements PrependExtensio
 
     private function defineTransport(string $name, string $environment): array
     {
-        if ('test' === $environment) {
+        if (true === in_array($environment, ['test'])) {
             return [
                 'dsn' => 'in-memory://',
             ];

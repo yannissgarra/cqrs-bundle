@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Serializer\Normalizer;
 
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\String\UnicodeString;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -20,7 +19,7 @@ use Webmunkeez\CQRSBundle\Model\BackedEnumInterface;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class BackedEnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
+final class BackedEnumNormalizer implements NormalizerInterface
 {
     private TranslatorInterface $translator;
 
@@ -34,7 +33,7 @@ final class BackedEnumNormalizer implements NormalizerInterface, CacheableSuppor
      *
      * @return array<string, string>
      */
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         return [
             'name' => $object->name,
@@ -43,13 +42,13 @@ final class BackedEnumNormalizer implements NormalizerInterface, CacheableSuppor
         ];
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof BackedEnumInterface;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format): array
     {
-        return true;
+        return [BackedEnumInterface::class => true];
     }
 }

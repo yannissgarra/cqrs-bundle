@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace Webmunkeez\CQRSBundle\Serializer\Normalizer;
 
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -21,7 +20,7 @@ use Webmunkeez\CQRSBundle\Exception\ValidationHttpException;
 /**
  * @author Yannis Sgarra <hello@yannissgarra.com>
  */
-final class ValidationHttpExceptionNormalizer implements NormalizerInterface, NormalizerAwareInterface, CacheableSupportsMethodInterface
+final class ValidationHttpExceptionNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -30,7 +29,7 @@ final class ValidationHttpExceptionNormalizer implements NormalizerInterface, No
      *
      * @return array<string, mixed>
      */
-    public function normalize(mixed $object, string $format = null, array $context = []): array
+    public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         /** @var ValidationException $previous */
         $previous = $object->getPrevious();
@@ -42,13 +41,13 @@ final class ValidationHttpExceptionNormalizer implements NormalizerInterface, No
         ];
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = []): bool
+    public function supportsNormalization($data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof ValidationHttpException;
     }
 
-    public function hasCacheableSupportsMethod(): bool
+    public function getSupportedTypes(?string $format): array
     {
-        return true;
+        return [ValidationHttpException::class => true];
     }
 }

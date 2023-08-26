@@ -27,11 +27,7 @@ final class WebmunkeezCQRSBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createAttributeMappingDriver([
-            'Webmunkeez\CQRSBundle\Model',
-        ], [
-            $this->getPath().'/Model',
-        ]));
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createAttributeMappingDriver(['Webmunkeez\CQRSBundle\Model'], [$this->getPath().'/Model'], reportFieldsWhereDeclared: true));
 
         $container->addCompilerPass(new ConfigureCommandHandlerPass());
         $container->addCompilerPass(new ConfigureEventListenerPass());
