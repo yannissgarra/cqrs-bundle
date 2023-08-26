@@ -24,7 +24,7 @@ enum TestEnum: int implements BackedEnumInterface
     case VALUE1 = 1;
     case VALUE2 = 2;
 
-    public static function getBaseTranslationMessage(): string
+    public static function getBaseTranslationKey(): string
     {
         return 'test';
     }

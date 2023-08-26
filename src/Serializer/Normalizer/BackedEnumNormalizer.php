@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace Webmunkeez\CQRSBundle\Serializer\Normalizer;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\String\UnicodeString;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmunkeez\CQRSBundle\Model\BackedEnumInterface;
 
@@ -37,7 +36,7 @@ final class BackedEnumNormalizer implements NormalizerInterface
     {
         return [
             'name' => $object->name,
-            'title' => $this->translator->trans($object::getBaseTranslationMessage().'.'.(new UnicodeString($object->name))->lower()->toString()),
+            'title' => $this->translator->trans($object->getTranslationKey()),
             'value' => $object->value,
         ];
     }

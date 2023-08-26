@@ -16,10 +16,24 @@ namespace Webmunkeez\CQRSBundle\Model;
  */
 interface BackedEnumInterface
 {
-    public static function getBaseTranslationMessage(): string;
+    public static function getBaseTranslationKey(): string;
+
+    public function getTranslationKey(): string;
 
     /**
      * @return array<int|string>
      */
     public static function getChoices(): array;
+
+    /**
+     * @return array<string>
+     */
+    public static function getNameChoices(): array;
+
+    public static function tryFromName(string $name): ?static;
+
+    /**
+     * @throws \ValueError
+     */
+    public static function fromName(string $name): static;
 }
